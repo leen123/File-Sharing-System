@@ -5,8 +5,10 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
+import javax.swing.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 @Data
@@ -32,6 +34,15 @@ public class Groups extends BaseEntity{
     @JoinColumn(name = "user_create_id",referencedColumnName = "id",nullable = false,updatable = false)
     private  User user;
 
+ public Groups fromMap(Map<String,?> map){
+  return Groups.builder()
+          .name((String) map.get("name"))
+          .editFilesAll((Boolean) map.get("editFilesAll"))
+          .addUserAll((Boolean) map.get("addUserAll"))
+          .editGroupAll((Boolean) map.get("editGroupAll"))
+          .typeGroup((String) map.get("typeGroup"))
+          .build();
+ }
     //@OneToMany (targetEntity = File.class,cascade = CascadeType.ALL)
     //@JoinColumn(name = "files_group_id",referencedColumnName = "id",nullable = false)
    // private List<File> files;

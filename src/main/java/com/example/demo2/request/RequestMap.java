@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.cassandra.CassandraProperties;
 
 import java.util.Map;
 
-public interface RequestMap {
+public class RequestMap {
     public  String token="";
-    void fromRequest(Map<String,String> header,Map<String,String> body);
+    public void fromRequest(Map<String,String> header,Map<String,?> body){
+
+    };
 }
