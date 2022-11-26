@@ -41,13 +41,13 @@ public class Groups extends BaseEntity{
           .typeGroup((String) map.get("typeGroup"))
           .build();
  }
-    //@OneToMany (targetEntity = File.class,cascade = CascadeType.ALL)
+    //@OneToMany (targetEntity = FileDto.class,cascade = CascadeType.ALL)
     //@JoinColumn(name = "files_group_id",referencedColumnName = "id",nullable = false)
-   // private List<File> files;
+   // private List<FileDto> files;
 
-   // @OneToMany (targetEntity = GroupUser.class,cascade = CascadeType.ALL)
+   // @OneToMany (targetEntity = GroupUserDto.class,cascade = CascadeType.ALL)
    // @JoinColumn(name = "group_id",referencedColumnName = "id",nullable = false)
-    //private List<GroupUser> groupUsers;
+    //private List<GroupUserDto> groupUsers;
 
    // @ManyToMany(mappedBy = "groupsSet")
     //private Set<User> userSet =new HashSet<>();

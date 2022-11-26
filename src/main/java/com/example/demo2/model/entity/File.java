@@ -22,8 +22,6 @@ public class File extends BaseEntity {
     private String size;
     @Column(nullable = false)
     private String state;
-    private Date dateEdit;
-    private Date date;
     public File fromMap(Map<String,?> map){
        return File.builder()
                 .name((String) map.get("name"))
@@ -32,15 +30,15 @@ public class File extends BaseEntity {
                 .state((String) map.get("state"))
                 .build();
     }
-//    @OneToMany(targetEntity = ReportFile.class,cascade = CascadeType.ALL)
+//    @OneToMany(targetEntity = ReportFileDto.class,cascade = CascadeType.ALL)
 //    @JoinColumn(name = "reports_file__id",referencedColumnName = "id",nullable = false)
-//    private List<ReportFile> reportFiles;
+//    private List<ReportFileDto> reportFiles;
 
     @ManyToOne(targetEntity = Groups.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "group_file_id",referencedColumnName = "id", nullable = false,updatable = false)
     private Groups groups;
 
-//    @OneToMany(targetEntity = ReportFile.class,cascade = CascadeType.ALL)
+//    @OneToMany(targetEntity = ReportFileDto.class,cascade = CascadeType.ALL)
 //    @JoinColumn(name = "reports_file__id",referencedColumnName = "id",nullable = false)
-//    private List<ReportFile> reportFiles;
+//    private List<ReportFileDto> reportFiles;
 }

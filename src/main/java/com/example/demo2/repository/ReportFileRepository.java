@@ -1,8 +1,8 @@
 package com.example.demo2.repository;/*package com.example.demo.repository;
 
-import com.example.demo.model.entity.File;
+import com.example.demo.model.entity.FileDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReportFileRepository extends JpaRepository<File,Integer> {
+public interface ReportFileRepository extends JpaRepository<FileDto,Integer> {
 }
 */

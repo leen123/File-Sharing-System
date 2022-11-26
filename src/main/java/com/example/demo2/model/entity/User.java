@@ -44,9 +44,9 @@ public class User extends BaseEntity{
             .build();
    }
 //   @CreatedBy
-//    @OneToMany(targetEntity = Groups.class,cascade = CascadeType.ALL)
+//    @OneToMany(targetEntity = GroupsDto.class,cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_create_id",referencedColumnName = "id",nullable = false,updatable = false)
-//    private List<Groups> groupsList;
+//    private List<GroupsDto> groupsList;
 
     /*
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -54,13 +54,13 @@ public class User extends BaseEntity{
     joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id"),},
     inverseJoinColumns = @JoinColumn(name = "group_id",referencedColumnName = "group_id")
     )
-    private Set<Groups> groupsSet=new HashSet<>();*/
+    private Set<GroupsDto> groupsSet=new HashSet<>();*/
 /*
-    @OneToMany(targetEntity = ReportFile.class,cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = ReportFileDto.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "reports_file_user__id",referencedColumnName = "id",nullable = true)
-    private List<ReportFile> reportFiles;
+    private List<ReportFileDto> reportFiles;
 
-    @OneToMany (targetEntity = GroupUser.class,cascade = CascadeType.ALL)
+    @OneToMany (targetEntity = GroupUserDto.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = false)
-    private List<GroupUser> groupUsers;*/
+    private List<GroupUserDto> groupUsers;*/
 }
