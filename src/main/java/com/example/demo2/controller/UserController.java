@@ -5,9 +5,7 @@ import com.example.demo2.model.entity.User;
 import com.example.demo2.request.*;
 import com.example.demo2.response.*;
 import com.example.demo2.services.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -137,6 +135,9 @@ public class UserController {
         createFileRequest.fromRequest(header,body);
         System.out.printf("token :"+createFileRequest.token);
         System.out.println(createFileRequest.getFile());
+        ResponseMap createFileResponse=new CreateFileResponse();
+        createFileResponse.fromResponseBody();
+        System.out.println(createFileResponse.getBody());
 
     }
 
@@ -146,6 +147,9 @@ public class UserController {
         createGroupRequest.fromRequest(header,body);
         System.out.printf("token :"+createGroupRequest.token);
         System.out.println(createGroupRequest.getGroup());
+        ResponseMap creatGroupResponse=new CreateGroupResponse();
+        creatGroupResponse.fromResponseBody();
+        System.out.println(creatGroupResponse.getBody());
 
     }
 
@@ -155,6 +159,9 @@ public class UserController {
         checkInRequest.fromRequest(header,body);
         System.out.println("token :"+checkInRequest.token);
         System.out.println("ListIdFile :"+checkInRequest.getlistFileId());
+        ResponseMap checkinResponse=new CheckinResponse();
+        checkinResponse.fromResponseBody();
+        System.out.println(checkinResponse.getBody());
     }
 
     @PostMapping("/check_out")
@@ -163,6 +170,9 @@ public class UserController {
         checkOutRequest.fromRequest(header,body);
         System.out.println("token :"+checkOutRequest.token);
         System.out.println("fileId :"+checkOutRequest.getfileId());
+        ResponseMap checkoutResponse=new CheckoutResponse();
+        checkoutResponse.fromResponseBody();
+        System.out.println(checkoutResponse.getBody());
 
     }
 }

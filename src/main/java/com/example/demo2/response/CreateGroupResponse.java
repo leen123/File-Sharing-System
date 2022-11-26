@@ -1,20 +1,18 @@
 package com.example.demo2.response;
 
+import com.example.demo2.model.entity.File;
 import com.example.demo2.model.entity.Groups;
 
-import java.util.List;
-
-public class GetGroupPublicResponse extends ResponseMap {
-    private List<Groups> listGroupPublic;
+public class CreateGroupResponse extends ResponseMap {
+    Groups groups;
     String token;
     @Override
     public  void fromResponseBody() {
-        listGroupPublic=(List<Groups>) (body.get("listGroupPublic"));
+        //listFile=(List<File>) (body.get("listFile"));
         super.fromResponseBody();
         body.put("token",token);
+        body.put("groups",groups);
+
     }
-
-
 }
-
 
