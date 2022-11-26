@@ -3,10 +3,7 @@ package com.example.demo2.controller;
 
 import com.example.demo2.model.entity.User;
 import com.example.demo2.request.*;
-import com.example.demo2.response.GetUserResponse;
-import com.example.demo2.response.LoginResponse;
-import com.example.demo2.response.RegisterResponse;
-import com.example.demo2.response.ResponseMap;
+import com.example.demo2.response.*;
 import com.example.demo2.services.UserService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +80,9 @@ public class UserController {
         GetGroupPublicRequest getGroupPublicRequest= new GetGroupPublicRequest();
         getGroupPublicRequest.fromRequest(header,null);
         System.out.printf("token :"+getGroupPublicRequest.token);
+        ResponseMap getGroupPublicResponse=new GetGroupPublicResponse();
+        getGroupPublicResponse.fromResponseBody();
+        System.out.println(getGroupPublicResponse.getBody());
 
     }
     @GetMapping("/get_group_private")
@@ -90,6 +90,9 @@ public class UserController {
         GetGroupPrivateRequest getGroupPrivateRequest= new GetGroupPrivateRequest();
         getGroupPrivateRequest.fromRequest(header,null);
         System.out.printf("token :"+getGroupPrivateRequest.token);
+        ResponseMap getGroupPrivateResponse=new GetGroupPrivateResponse();
+        getGroupPrivateResponse.fromResponseBody();
+        System.out.println(getGroupPrivateResponse.getBody());
 
     }
 
@@ -99,6 +102,9 @@ public class UserController {
         getFileRequest.fromRequest(header,body);
         System.out.printf("token :"+getFileRequest.token);
         System.out.println(getFileRequest.getGroupid());
+        ResponseMap getFileResponse=new GetFileResponse();
+        getFileResponse.fromResponseBody();
+        System.out.println(getFileResponse.getBody());
 
     }
 
@@ -108,6 +114,9 @@ public class UserController {
         getReportsFileRequest.fromRequest(header,body);
         System.out.printf("token :"+getReportsFileRequest.token);
         System.out.println(getReportsFileRequest.getFileId());
+        ResponseMap getReportsResponse=new GetReportsResponse();
+        getReportsResponse.fromResponseBody();
+        System.out.println(getReportsResponse.getBody());
 
     }
 
@@ -117,6 +126,9 @@ public class UserController {
         deleteFileRequest.fromRequest(header,body);
         System.out.printf("token :"+deleteFileRequest.token);
         System.out.println(deleteFileRequest.getFileId());
+        ResponseMap deleteFileResponse=new DeleteFileResponse();
+        deleteFileResponse.fromResponseBody();
+        System.out.println(deleteFileResponse.getBody());
 
     }
     @GetMapping("/create_file")
