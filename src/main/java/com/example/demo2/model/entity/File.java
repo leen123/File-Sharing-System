@@ -1,9 +1,6 @@
-package com.example.demo2.model.entity;/*package com.example.demo.model.entity;
+package com.example.demo2.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
@@ -47,5 +44,3 @@ public class File extends BaseEntity {
 //    @JoinColumn(name = "reports_file__id",referencedColumnName = "id",nullable = false)
 //    private List<ReportFile> reportFiles;
 }
-
- */
