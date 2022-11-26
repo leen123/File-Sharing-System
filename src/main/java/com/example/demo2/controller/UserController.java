@@ -3,7 +3,10 @@ package com.example.demo2.controller;
 
 import com.example.demo2.model.entity.User;
 import com.example.demo2.request.*;
-
+import com.example.demo2.response.GetUserResponse;
+import com.example.demo2.response.LoginResponse;
+import com.example.demo2.response.RegisterResponse;
+import com.example.demo2.response.ResponseMap;
 import com.example.demo2.services.UserService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +52,9 @@ public class UserController {
         loginRequest.fromRequest(header,body);
         System.out.println(loginRequest.getUserOrEmail());
         System.out.println(loginRequest.getPassword());
+        ResponseMap loginResponse=new LoginResponse();
+        loginResponse.fromResponseBody();
+        System.out.println(loginResponse.getBody());
     }
     @PostMapping("/register")
     public void register(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
@@ -58,12 +64,18 @@ public class UserController {
         System.out.println(registerRequest.getUsername());
         System.out.println(registerRequest.getEmail());
         System.out.println(registerRequest.getPassword());
+        ResponseMap registerResponse=new RegisterResponse();
+        registerResponse.fromResponseBody();
+        System.out.println(registerResponse.getBody());
     }
     @GetMapping("/get_user")
     public void getUser(@RequestHeader Map<String,String> header){
         GetUserRequest getUserRequest= new GetUserRequest();
         getUserRequest.fromRequest(header,null);
         System.out.printf("token :"+getUserRequest.token);
+        ResponseMap getUserResponse=new GetUserResponse();
+        getUserResponse.fromResponseBody();
+        System.out.println(getUserResponse.getBody());
 
     }
     @GetMapping("/get_group_public")
@@ -71,6 +83,9 @@ public class UserController {
         GetGroupPublicRequest getGroupPublicRequest= new GetGroupPublicRequest();
         getGroupPublicRequest.fromRequest(header,null);
         System.out.printf("token :"+getGroupPublicRequest.token);
+        ResponseMap getGroupPublicResponse=new GetGroupPublicResponse();
+        getGroupPublicResponse.fromResponseBody();
+        System.out.println(getGroupPublicResponse.getBody());
 
     }
     @GetMapping("/get_group_private")
@@ -78,6 +93,9 @@ public class UserController {
         GetGroupPrivateRequest getGroupPrivateRequest= new GetGroupPrivateRequest();
         getGroupPrivateRequest.fromRequest(header,null);
         System.out.printf("token :"+getGroupPrivateRequest.token);
+        ResponseMap getGroupPrivateResponse=new GetGroupPrivateResponse();
+        getGroupPrivateResponse.fromResponseBody();
+        System.out.println(getGroupPrivateResponse.getBody());
 
     }
 
@@ -87,6 +105,9 @@ public class UserController {
         getFileRequest.fromRequest(header,body);
         System.out.printf("token :"+getFileRequest.token);
         System.out.println(getFileRequest.getGroupid());
+        ResponseMap getFileResponse=new GetFileResponse();
+        getFileResponse.fromResponseBody();
+        System.out.println(getFileResponse.getBody());
 
     }
 
@@ -96,6 +117,9 @@ public class UserController {
         getReportsFileRequest.fromRequest(header,body);
         System.out.printf("token :"+getReportsFileRequest.token);
         System.out.println(getReportsFileRequest.getFileId());
+        ResponseMap getReportsResponse=new GetReportsResponse();
+        getReportsResponse.fromResponseBody();
+        System.out.println(getReportsResponse.getBody());
 
     }
 
@@ -105,6 +129,9 @@ public class UserController {
         deleteFileRequest.fromRequest(header,body);
         System.out.printf("token :"+deleteFileRequest.token);
         System.out.println(deleteFileRequest.getFileId());
+        ResponseMap deleteFileResponse=new DeleteFileResponse();
+        deleteFileResponse.fromResponseBody();
+        System.out.println(deleteFileResponse.getBody());
 
     }
     @PostMapping("/create_file")
