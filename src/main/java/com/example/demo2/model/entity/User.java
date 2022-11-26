@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Table(name = "users")
 @Entity
 @Data
@@ -28,6 +31,13 @@ public class User extends BaseEntity{
    @Column(nullable = false)
     private  String typeUser;
 
+
+
+
+//   @CreatedBy
+//    @OneToMany(targetEntity = Groups.class,cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_create_id",referencedColumnName = "id",nullable = false,updatable = false)
+//    private List<Groups> groupsList;
 
     /*
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

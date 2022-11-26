@@ -1,4 +1,4 @@
-package com.example.demo2.model.entity;/*package com.example.demo.model.entity;
+package com.example.demo2.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 @Data
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity
-public class File {
+public class File extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
@@ -21,12 +22,12 @@ public class File {
     private String size;
     @Column(nullable = false)
     private String state;
-    private Date dateEdit;
-    private Date date;
 
-    @OneToMany(targetEntity = ReportFile.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "reports_file__id",referencedColumnName = "id",nullable = false)
-    private List<ReportFile> reportFiles;
+    @ManyToOne(targetEntity = Groups.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "group_file_id",referencedColumnName = "id", nullable = false,updatable = false)
+    private Groups groups;
+
+//    @OneToMany(targetEntity = ReportFile.class,cascade = CascadeType.ALL)
+//    @JoinColumn(name = "reports_file__id",referencedColumnName = "id",nullable = false)
+//    private List<ReportFile> reportFiles;
 }
-
- */

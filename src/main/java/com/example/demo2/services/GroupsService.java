@@ -18,6 +18,8 @@ public class GroupsService {
         return groups.orElse(null);
     }
     public Groups saveGroup(Groups groups){
+
+        System.out.println(groups);
         return this.groupsRepository.save(groups);
 
     }

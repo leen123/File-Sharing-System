@@ -18,7 +18,6 @@ import java.util.List;
 public class Groups extends BaseEntity{
 
    // @Column(unique = true)
-  //  private  int userCreateId;
     @Column(unique = true,nullable = false)
     private String name;
     private Boolean editFilesAll;
@@ -27,10 +26,9 @@ public class Groups extends BaseEntity{
     @Column(nullable = false)
     private String typeGroup;
 
-    @CreatedBy
-    @ManyToOne(targetEntity = User.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_create_id",referencedColumnName = "id",nullable = false,updatable = false)
-    private  User user;
+ @ManyToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+ @JoinColumn(name = "user_create_id",referencedColumnName = "id", nullable = false,updatable = false)
+ private User user;
 
     //@OneToMany (targetEntity = File.class,cascade = CascadeType.ALL)
     //@JoinColumn(name = "files_group_id",referencedColumnName = "id",nullable = false)
