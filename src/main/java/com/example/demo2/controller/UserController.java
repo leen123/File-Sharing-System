@@ -59,21 +59,21 @@ public class UserController {
         System.out.println(registerRequest.getPassword());
     }
     @GetMapping("/get_user")
-    public void getuser(@RequestHeader Map<String,String> header){
+    public void getUser(@RequestHeader Map<String,String> header){
         GetUserRequest getUserRequest= new GetUserRequest();
         getUserRequest.fromRequest(header,null);
         System.out.printf("token :"+getUserRequest.token);
 
     }
     @GetMapping("/get_group_public")
-    public void getgrouppublic(@RequestHeader Map<String,String> header){
+    public void getGrouppublic(@RequestHeader Map<String,String> header){
         GetGroupPublicRequest getGroupPublicRequest= new GetGroupPublicRequest();
         getGroupPublicRequest.fromRequest(header,null);
         System.out.printf("token :"+getGroupPublicRequest.token);
 
     }
     @GetMapping("/get_group_private")
-    public void getgroupprivate(@RequestHeader Map<String,String> header){
+    public void getGroupPrivate(@RequestHeader Map<String,String> header){
         GetGroupPrivateRequest getGroupPrivateRequest= new GetGroupPrivateRequest();
         getGroupPrivateRequest.fromRequest(header,null);
         System.out.printf("token :"+getGroupPrivateRequest.token);
@@ -81,7 +81,7 @@ public class UserController {
     }
 
     @GetMapping("/get_file")
-    public void getfile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+    public void getFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         GetFileRequest getFileRequest= new GetFileRequest();
         getFileRequest.fromRequest(header,body);
         System.out.printf("token :"+getFileRequest.token);
@@ -90,7 +90,7 @@ public class UserController {
     }
 
     @GetMapping("/get_reports_file")
-    public void getreportsfile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+    public void getReportsFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         GetReportsFileRequest getReportsFileRequest= new GetReportsFileRequest();
         getReportsFileRequest.fromRequest(header,body);
         System.out.printf("token :"+getReportsFileRequest.token);
@@ -98,15 +98,15 @@ public class UserController {
 
     }
 
-    @GetMapping("/get_delete_file")
-    public void getdeletefile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+    @DeleteMapping("/delete_file")
+    public void deleteFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         DeleteFileRequest deleteFileRequest= new DeleteFileRequest();
         deleteFileRequest.fromRequest(header,body);
         System.out.printf("token :"+deleteFileRequest.token);
         System.out.println(deleteFileRequest.getFileId());
 
     }
-    @GetMapping("/create_file")
+    @PostMapping("/create_file")
     public void createFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         CreateFileRequest createFileRequest= new CreateFileRequest();
         createFileRequest.fromRequest(header,body);
@@ -115,7 +115,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/create_group")
+    @PostMapping("/create_group")
     public void createGroup(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         CreateGroupRequest createGroupRequest= new CreateGroupRequest();
         createGroupRequest.fromRequest(header,body);
@@ -124,12 +124,20 @@ public class UserController {
 
     }
 
-    @GetMapping("/check_in")
+    @PostMapping("/check_in")
     public void checkIn(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         CheckInRequest checkInRequest= new CheckInRequest();
         checkInRequest.fromRequest(header,body);
-        System.out.printf("token :"+checkInRequest.token);
-        System.out.println(checkInRequest.getFileId());
+        System.out.println("token :"+checkInRequest.token);
+        System.out.println("ListIdFile :"+checkInRequest.getlistFileId());
+    }
+
+    @PostMapping("/check_out")
+    public void checkOut(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+        CheckOutRequest checkOutRequest= new CheckOutRequest();
+        checkOutRequest.fromRequest(header,body);
+        System.out.println("token :"+checkOutRequest.token);
+        System.out.println("fileId :"+checkOutRequest.getfileId());
 
     }
 }

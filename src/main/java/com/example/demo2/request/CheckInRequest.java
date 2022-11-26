@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 public class CheckInRequest extends RequestMap {
-    private List<String> listIdFile;
+    private List<String> listFileId;
     public void fromRequest(Map<String, String> header, Map<String, ?> body) {
         token = header.get("token");
-        listIdFile=(List<String>) (body.get("listIdFile"));
+        listFileId=(List<String>) (body.get("listFileId"));
     }
 
 
-    public List<String> getListIdFile() {
-        return listIdFile;
+    public List<String> getlistFileId() {
+        return listFileId;
     }
 
-    public void setListIdFile(List<String> listIdFile) {
-        this.listIdFile = listIdFile;
+    public void setlistFileId(List<String> listFileId) {
+        this.listFileId = listFileId;
     }
 }
