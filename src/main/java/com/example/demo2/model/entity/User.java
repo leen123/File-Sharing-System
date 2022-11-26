@@ -33,7 +33,16 @@ public class User extends BaseEntity{
 
 
 
-
+  public static User demoBuilder(){
+    return User.builder()
+            .firstName("firstName")
+            .lastName("lastName")
+            .userName("userName")
+            .email("email")
+            .password("password")
+            .typeUser("typeUser")
+            .build();
+   }
 //   @CreatedBy
 //    @OneToMany(targetEntity = Groups.class,cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_create_id",referencedColumnName = "id",nullable = false,updatable = false)

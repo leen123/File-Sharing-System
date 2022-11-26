@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class CheckInRequest extends RequestMap {
     private List<String> listIdFile;
+
+
     public void fromRequest(Map<String, String> header, Map<String, ?> body) {
         token = header.get("token");
         listIdFile=(List<String>) (body.get("listIdFile"));

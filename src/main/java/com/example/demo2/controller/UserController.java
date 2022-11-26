@@ -3,6 +3,10 @@ package com.example.demo2.controller;
 
 import com.example.demo2.model.entity.User;
 import com.example.demo2.request.*;
+import com.example.demo2.response.GetUserResponse;
+import com.example.demo2.response.LoginResponse;
+import com.example.demo2.response.RegisterResponse;
+import com.example.demo2.response.ResponseMap;
 import com.example.demo2.services.UserService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +52,9 @@ public class UserController {
         loginRequest.fromRequest(header,body);
         System.out.println(loginRequest.getUserOrEmail());
         System.out.println(loginRequest.getPassword());
+        ResponseMap loginResponse=new LoginResponse();
+        loginResponse.fromResponseBody();
+        System.out.println(loginResponse.getBody());
     }
     @PostMapping("/register")
     public void register(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
@@ -57,12 +64,18 @@ public class UserController {
         System.out.println(registerRequest.getUsername());
         System.out.println(registerRequest.getEmail());
         System.out.println(registerRequest.getPassword());
+        ResponseMap registerResponse=new RegisterResponse();
+        registerResponse.fromResponseBody();
+        System.out.println(registerResponse.getBody());
     }
     @GetMapping("/get_user")
     public void getuser(@RequestHeader Map<String,String> header){
         GetUserRequest getUserRequest= new GetUserRequest();
         getUserRequest.fromRequest(header,null);
         System.out.printf("token :"+getUserRequest.token);
+        ResponseMap getUserResponse=new GetUserResponse();
+        getUserResponse.fromResponseBody();
+        System.out.println(getUserResponse.getBody());
 
     }
     @GetMapping("/get_group_public")
@@ -129,7 +142,7 @@ public class UserController {
         CheckInRequest checkInRequest= new CheckInRequest();
         checkInRequest.fromRequest(header,body);
         System.out.printf("token :"+checkInRequest.token);
-        System.out.println(checkInRequest.getFileId());
+        System.out.println(checkInRequest.getListIdFile());
 
     }
 }
