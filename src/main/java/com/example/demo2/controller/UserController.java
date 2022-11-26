@@ -3,10 +3,7 @@ package com.example.demo2.controller;
 
 import com.example.demo2.model.entity.User;
 import com.example.demo2.request.*;
-import com.example.demo2.response.GetUserResponse;
-import com.example.demo2.response.LoginResponse;
-import com.example.demo2.response.RegisterResponse;
-import com.example.demo2.response.ResponseMap;
+import com.example.demo2.response.*;
 import com.example.demo2.services.UserService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
