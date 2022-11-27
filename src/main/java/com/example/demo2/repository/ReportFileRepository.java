@@ -1,8 +1,14 @@
-package com.example.demo2.repository;/*package com.example.demo.repository;
+package com.example.demo2.repository;
 
-import com.example.demo.model.entity.FileDto;
+
+import com.example.demo2.model.entity.File;
+import com.example.demo2.model.entity.ReportFile;
+import com.example.demo2.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReportFileRepository extends JpaRepository<FileDto,Integer> {
+import java.util.List;
+import java.util.Optional;
+
+public interface ReportFileRepository extends JpaRepository<ReportFile,Integer> {
+    Optional<List<ReportFile>> findAllByUserAndAndFile(User user, File file);
 }
-*/

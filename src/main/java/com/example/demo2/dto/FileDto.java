@@ -22,7 +22,7 @@ public class FileDto extends BaseEntity {
     private String state;
     private int groupId;
 
-    void fromEntety(File file){
+    public void fromEntety(File file){
         id=file.getId();
         name=file.getName();
         url=file.getUrl();

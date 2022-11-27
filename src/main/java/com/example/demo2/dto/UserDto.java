@@ -16,7 +16,7 @@ public class UserDto extends BaseEntity {
     private  String email;
     private  String typeUser;
 
-    void fromEntety(User user){
+    public  void fromEntety(User user){
         id=user.getId();
        firstName=user.getFirstName();
        lastName=user.getLastName();

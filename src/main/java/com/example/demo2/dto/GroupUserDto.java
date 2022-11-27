@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity
+
 public class GroupUserDto extends BaseEntity {
     private String stateUser;
     private int groupId;

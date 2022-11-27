@@ -16,7 +16,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Builder
 @ToString
-public class GroupsDto extends BaseEntity{
+public class GroupsDto extends BaseDto{
 
 
     private String name;
@@ -26,7 +26,7 @@ public class GroupsDto extends BaseEntity{
     private String typeGroup;
     private int userCreateId;
 
-    void fromEntety(Groups groups){
+    public  void fromEntety(Groups groups){
         id=groups.getId();
         name =groups.getName();
         editFilesAll=groups.getEditFilesAll();

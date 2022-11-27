@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity
+
 public class ReportFileDto extends BaseEntity{
     private String stateFile;
     private int fileId;

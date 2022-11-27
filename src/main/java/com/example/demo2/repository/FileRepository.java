@@ -1,8 +1,13 @@
-package com.example.demo2.repository;/*package com.example.demo.repository;
+package com.example.demo2.repository;
 
-import com.example.demo.model.entity.FileDto;
+
+import com.example.demo2.model.entity.File;
+import com.example.demo2.model.entity.Groups;
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FileRepository extends JpaRepository<FileDto,Integer> {
+import java.util.Optional;
+
+public interface FileRepository extends JpaRepository<File,Integer> {
+    boolean existsByNameAndGroups(String name, Groups groups);
 }
-*/

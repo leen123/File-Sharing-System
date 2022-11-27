@@ -1,17 +1,23 @@
 package com.example.demo2.response;
 
+import com.example.demo2.dto.GroupsDto;
 import com.example.demo2.model.entity.Groups;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.mapping.Set;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GetGroupPublicResponse extends ResponseMap {
-    private List<Groups> listGroupPublic;
+    @Getter
+    @Setter
+    private List<GroupsDto> listGroupPublic=new ArrayList<>();
     String token;
     @Override
     public  void fromResponseBody() {
-        listGroupPublic=(List<Groups>) (body.get("listGroupPublic"));
         super.fromResponseBody();
-        body.put("token",token);
+        body.put("listGroupPublic",listGroupPublic);
     }
 
 

@@ -1,10 +1,11 @@
 package com.example.demo2.response;
 
+import com.example.demo2.dto.GroupsDto;
 import com.example.demo2.model.entity.File;
 import com.example.demo2.model.entity.Groups;
 
 public class CreateGroupResponse extends ResponseMap {
-    Groups groups;
+    GroupsDto groups=GroupsDto.builder().build();
     String token;
     @Override
     public  void fromResponseBody() {
@@ -13,6 +14,22 @@ public class CreateGroupResponse extends ResponseMap {
         body.put("token",token);
         body.put("groups",groups);
 
+    }
+
+    public GroupsDto getGroups() {
+        return groups;
+    }
+
+    public void setGroups(GroupsDto groups) {
+        this.groups = groups;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
 

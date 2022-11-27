@@ -3,26 +3,22 @@ package com.example.demo2.request;
 import java.util.Map;
 
 public class RegisterRequest extends RequestMap {
-    private String name;
+    private String lastName;
+    private String firstName;
     private String username;
     private String email;
     private String password;
 
     @Override
     public void fromRequest(Map<String,String> header, Map<String,?> body) {
-        name=(String) body.get("name");
-        username=(String)body.get("username");
+        lastName=(String) body.get("firstName");
+        firstName=(String) body.get("lastName");
+        username=(String)body.get("userName");
         email=(String)body.get("email");
         password=(String)body.get("password");
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getUsername() {
         return username;
@@ -46,6 +42,22 @@ public class RegisterRequest extends RequestMap {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 }
 

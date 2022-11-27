@@ -5,6 +5,7 @@ import com.example.demo2.model.entity.User;
 import com.example.demo2.request.*;
 import com.example.demo2.response.*;
 import com.example.demo2.services.UserService;
+import com.example.demo2.validate.UserValidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserValidate userValidate;
     /*@GetMapping("/get-user")
     public User getUser(@RequestParam int id ){
        // System.out.println("temp id get-user "+id);
@@ -44,33 +47,54 @@ public class UserController {
     @PostMapping("/login")
     public void login(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         LoginRequest loginRequest= new LoginRequest();
+        LoginResponse loginResponse=new LoginResponse();
         loginRequest.fromRequest(header,body);
-        System.out.println(loginRequest.getUserOrEmail());
-        System.out.println(loginRequest.getPassword());
-        ResponseMap loginResponse=new LoginResponse();
-        loginResponse.fromResponseBody();
-        System.out.println(loginResponse.getBody());
+        System.out.println(loginRequest);
+
+        Map response= userValidate.loginValidate(loginRequest);
+        if((int)response.get("status")==200){
+            loginResponse.getUserDto().fromEntety(userService.login(loginRequest));
+            loginResponse.fromResponseBody();
+            response.put("body",loginResponse.getBody());
+        }
+        System.out.println(response);
     }
     @PostMapping("/register")
     public void register(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         RegisterRequest registerRequest= new RegisterRequest();
+        RegisterResponse registerResponse=new RegisterResponse();
         registerRequest.fromRequest(header,body);
-        System.out.println(registerRequest.getName());
-        System.out.println(registerRequest.getUsername());
-        System.out.println(registerRequest.getEmail());
-        System.out.println(registerRequest.getPassword());
-        ResponseMap registerResponse=new RegisterResponse();
-        registerResponse.fromResponseBody();
-        System.out.println(registerResponse.getBody());
+
+        User user= User.builder()
+                .firstName(registerRequest.getFirstName())
+                .lastName(registerRequest.getLastName())
+                .email(registerRequest.getEmail())
+                .userName(registerRequest.getUsername())
+                .password(registerRequest.getPassword())
+                .typeUser("user").build();
+        Map response= userValidate.registerValidate(user);
+        if((int)response.get("status")==201){
+            registerResponse.getUserDto().fromEntety(userService.saveUser(user));
+            registerResponse.fromResponseBody();
+            response.put("body",registerResponse.getBody());
+        }
+
+        System.out.println(response);
     }
     @GetMapping("/get_user")
     public void getUser(@RequestHeader Map<String,String> header){
         GetUserRequest getUserRequest= new GetUserRequest();
+        GetUserResponse getUserResponse=new GetUserResponse();
         getUserRequest.fromRequest(header,null);
-        System.out.printf("token :"+getUserRequest.token);
-        ResponseMap getUserResponse=new GetUserResponse();
-        getUserResponse.fromResponseBody();
-        System.out.println(getUserResponse.getBody());
+
+        Map response= userValidate.getUserValidate(getUserRequest.token);
+        if((int)response.get("status")==200){
+            getUserResponse.getUserDto().fromEntety(userService.getUser(Integer.parseInt(getUserRequest.token)));
+            getUserResponse.fromResponseBody();
+            response.put("body",getUserResponse.getBody());
+        }
+
+        System.out.println(response);
 
     }
     @GetMapping("/get_group_public")
@@ -115,7 +139,6 @@ public class UserController {
         ResponseMap getReportsResponse=new GetReportsResponse();
         getReportsResponse.fromResponseBody();
         System.out.println(getReportsResponse.getBody());
-
     }
 
     @DeleteMapping("/delete_file")
@@ -127,31 +150,8 @@ public class UserController {
         ResponseMap deleteFileResponse=new DeleteFileResponse();
         deleteFileResponse.fromResponseBody();
         System.out.println(deleteFileResponse.getBody());
-
-    }
-    @PostMapping("/create_file")
-    public void createFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
-        CreateFileRequest createFileRequest= new CreateFileRequest();
-        createFileRequest.fromRequest(header,body);
-        System.out.printf("token :"+createFileRequest.token);
-        System.out.println(createFileRequest.getFile());
-        ResponseMap createFileResponse=new CreateFileResponse();
-        createFileResponse.fromResponseBody();
-        System.out.println(createFileResponse.getBody());
-
     }
 
-    @PostMapping("/create_group")
-    public void createGroup(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
-        CreateGroupRequest createGroupRequest= new CreateGroupRequest();
-        createGroupRequest.fromRequest(header,body);
-        System.out.printf("token :"+createGroupRequest.token);
-        System.out.println(createGroupRequest.getGroup());
-        ResponseMap creatGroupResponse=new CreateGroupResponse();
-        creatGroupResponse.fromResponseBody();
-        System.out.println(creatGroupResponse.getBody());
-
-    }
 
     @PostMapping("/check_in")
     public void checkIn(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
