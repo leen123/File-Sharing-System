@@ -4,17 +4,17 @@ package com.example.demo2.controller;
 import com.example.demo2.dto.GroupsDto;
 import com.example.demo2.model.entity.Groups;
 import com.example.demo2.model.entity.User;
+import com.example.demo2.request.AddUserForGroupRequest;
 import com.example.demo2.request.CreateGroupRequest;
 import com.example.demo2.request.GetGroupPrivateRequest;
 import com.example.demo2.request.GetGroupPublicRequest;
-import com.example.demo2.response.CreateGroupResponse;
-import com.example.demo2.response.GetGroupPrivateResponse;
-import com.example.demo2.response.GetGroupPublicResponse;
-import com.example.demo2.response.ResponseMap;
+import com.example.demo2.response.*;
 import com.example.demo2.services.GroupsService;
 import com.example.demo2.services.UserService;
 import com.example.demo2.validate.GroupsValidate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class GroupsController {
 
 
     @PostMapping("/create_group")
-    public void createGroup(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+    public ResponseEntity createGroup(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         CreateGroupRequest createGroupRequest= new CreateGroupRequest();
         CreateGroupResponse creatGroupResponse=new CreateGroupResponse();
         createGroupRequest.fromRequest(header,body);
@@ -66,11 +66,11 @@ public class GroupsController {
             creatGroupResponse.fromResponseBody();
             response.put("body",creatGroupResponse.getBody());
         }
-
-        System.out.println(response);
+        return ResponseMap.responseEntity(response);
+       // System.out.println(response);
     }
     @GetMapping("/get_group_public")
-    public void getGrouppublic(@RequestHeader Map<String,String> header){
+    public ResponseEntity getGrouppublic(@RequestHeader Map<String,String> header){
         GetGroupPublicRequest getGroupPublicRequest= new GetGroupPublicRequest();
         GetGroupPublicResponse getGroupPublicResponse=new GetGroupPublicResponse();
         getGroupPublicRequest.fromRequest(header,null);
@@ -88,12 +88,12 @@ public class GroupsController {
             getGroupPublicResponse.fromResponseBody();
             response.put("body",getGroupPublicResponse.getBody());
         }
-
-        System.out.println(response);
+        return ResponseMap.responseEntity(response);
+        //System.out.println(response);
 
     }
     @GetMapping("/get_group_private")
-    public void getGroupPrivate(@RequestHeader Map<String,String> header){
+    public ResponseEntity getGroupPrivate(@RequestHeader Map<String,String> header){
         GetGroupPrivateRequest getGroupPrivateRequest= new GetGroupPrivateRequest();
         GetGroupPrivateResponse getGroupPrivateResponse=new GetGroupPrivateResponse();
         getGroupPrivateRequest.fromRequest(header,null);
@@ -111,7 +111,24 @@ public class GroupsController {
             getGroupPrivateResponse.fromResponseBody();
             response.put("body",getGroupPrivateResponse.getBody());
         }
-        System.out.println(response);
+        return ResponseMap.responseEntity(response);
+        //System.out.println(response);
+    }
+    @PostMapping("/add_user_group")
+    public ResponseEntity addUserForGroup(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+        AddUserForGroupRequest addUserForGroupRequest= new AddUserForGroupRequest();
+        AddUserForGroupResponse addUserForGroupResponse=new AddUserForGroupResponse();
+        addUserForGroupRequest.fromRequest(header,body);
+
+
+        Map response= groupsValidate.AddUserToGroupValidate(addUserForGroupRequest.getGroupId(),addUserForGroupRequest.getUserId(),Integer.parseInt(addUserForGroupRequest.token));
+        if((int)response.get("status")== 201){
+            groupsService.addUserForGroup(addUserForGroupRequest.getGroupId(),addUserForGroupRequest.getUserId());
+            addUserForGroupResponse.fromResponseBody();
+            response.put("body",addUserForGroupResponse.getBody());
+        }
+        return ResponseMap.responseEntity(response);
+        // System.out.println(response);
     }
 
 

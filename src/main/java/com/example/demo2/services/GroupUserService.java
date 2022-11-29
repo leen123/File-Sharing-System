@@ -3,6 +3,7 @@ package com.example.demo2.services;
 import com.example.demo2.model.entity.GroupUser;
 import com.example.demo2.model.entity.Groups;
 import com.example.demo2.model.entity.User;
+import com.example.demo2.model.entity.resours.TypeUserGroup;
 import com.example.demo2.repository.GroupUserRepository;
 import com.example.demo2.repository.GroupsRepository;
 import com.example.demo2.request.CreateGroupRequest;
@@ -43,6 +44,11 @@ public class GroupUserService {
     public GroupUser saveGroupUser(CreateGroupRequest createGroupRequest,Groups groups,String stateUser){
         User user= userService.getUser(Integer.parseInt(createGroupRequest.token));
         GroupUser groupUser =groupUserRepository.save( GroupUser.builder().groups(groups).user(user).stateUser(stateUser).build());
+        return groupUser;
+    }
+    public GroupUser addUserForGroup(Groups groups,int userId){
+        User user= userService.getUser(userId);
+        GroupUser groupUser =groupUserRepository.save( GroupUser.builder().groups(groups).user(user).stateUser(TypeUserGroup.member.name()).build());
         return groupUser;
     }
 

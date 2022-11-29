@@ -14,7 +14,7 @@ import java.util.Map;
 @NoArgsConstructor
 @ToString
 @Builder
-public class FileDto extends BaseEntity {
+public class FileDto extends BaseDto {
 
     private String name;
     private String url;
@@ -22,7 +22,9 @@ public class FileDto extends BaseEntity {
     private String state;
     private int groupId;
 
+
     public void fromEntety(File file){
+        super.fromEntety(file);
         id=file.getId();
         name=file.getName();
         url=file.getUrl();

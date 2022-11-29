@@ -7,6 +7,7 @@ import com.example.demo2.response.*;
 import com.example.demo2.services.UserService;
 import com.example.demo2.validate.UserValidate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public void login(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+    public ResponseEntity login(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         LoginRequest loginRequest= new LoginRequest();
         LoginResponse loginResponse=new LoginResponse();
         loginRequest.fromRequest(header,body);
@@ -57,10 +58,11 @@ public class UserController {
             loginResponse.fromResponseBody();
             response.put("body",loginResponse.getBody());
         }
-        System.out.println(response);
+        return ResponseMap.responseEntity(response);
+        // System.out.println(response);
     }
     @PostMapping("/register")
-    public void register(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+    public ResponseEntity register(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         RegisterRequest registerRequest= new RegisterRequest();
         RegisterResponse registerResponse=new RegisterResponse();
         registerRequest.fromRequest(header,body);
@@ -79,10 +81,12 @@ public class UserController {
             response.put("body",registerResponse.getBody());
         }
 
-        System.out.println(response);
+
+        return ResponseMap.responseEntity(response);
+       // return ResponseEntity.status((int)response.get("status")).body(response);
     }
     @GetMapping("/get_user")
-    public void getUser(@RequestHeader Map<String,String> header){
+    public ResponseEntity getUser(@RequestHeader Map<String,String> header){
         GetUserRequest getUserRequest= new GetUserRequest();
         GetUserResponse getUserResponse=new GetUserResponse();
         getUserRequest.fromRequest(header,null);
@@ -94,8 +98,8 @@ public class UserController {
             response.put("body",getUserResponse.getBody());
         }
 
-        System.out.println(response);
-
+       // System.out.println(response);
+        return ResponseMap.responseEntity(response);
     }
     @GetMapping("/get_group_public")
     public void getGrouppublic(@RequestHeader Map<String,String> header){
@@ -118,7 +122,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/get_file")
+    /*@GetMapping("/get_file")
     public void getFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         GetFileRequest getFileRequest= new GetFileRequest();
         getFileRequest.fromRequest(header,body);
@@ -128,7 +132,7 @@ public class UserController {
         getFileResponse.fromResponseBody();
         System.out.println(getFileResponse.getBody());
 
-    }
+    }*/
 
     @GetMapping("/get_reports_file")
     public void getReportsFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
@@ -153,26 +157,6 @@ public class UserController {
     }
 
 
-    @PostMapping("/check_in")
-    public void checkIn(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
-        CheckInRequest checkInRequest= new CheckInRequest();
-        checkInRequest.fromRequest(header,body);
-        System.out.println("token :"+checkInRequest.token);
-        System.out.println("ListIdFile :"+checkInRequest.getlistFileId());
-        ResponseMap checkinResponse=new CheckinResponse();
-        checkinResponse.fromResponseBody();
-        System.out.println(checkinResponse.getBody());
-    }
 
-    @PostMapping("/check_out")
-    public void checkOut(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
-        CheckOutRequest checkOutRequest= new CheckOutRequest();
-        checkOutRequest.fromRequest(header,body);
-        System.out.println("token :"+checkOutRequest.token);
-        System.out.println("fileId :"+checkOutRequest.getfileId());
-        ResponseMap checkoutResponse=new CheckoutResponse();
-        checkoutResponse.fromResponseBody();
-        System.out.println(checkoutResponse.getBody());
 
-    }
 }

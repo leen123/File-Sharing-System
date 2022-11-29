@@ -1,6 +1,7 @@
 package com.example.demo2.dto;
 
 
+import com.example.demo2.model.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,4 +21,9 @@ public class BaseDto {
     @Getter
     @Setter
     protected Date updatedAt=new Date(System.currentTimeMillis());
+    public  void fromEntety(BaseEntity baseEntity){
+        this.id=baseEntity.getId();
+        this.createdAt=baseEntity.getCreatedAt();
+        this.updatedAt=baseEntity.getUpdatedAt();
+    }
 }

@@ -1,21 +1,18 @@
 package com.example.demo2.request;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Map;
 
 public class GetFileRequest extends RequestMap {
-    private int groupid;
+    @Setter
+    @Getter
+    private int groupId;
     @Override
     public void fromRequest(Map<String, String> header, Map<String, ?> body) {
         token = header.get("token");
-        groupid=(Integer)body.get("groupid");
+        groupId=(Integer)body.get("groupId");
     }
 
-
-    public int getGroupid() {
-        return groupid;
-    }
-
-    public void setGroupid(int groupid) {
-        this.groupid = groupid;
-    }
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserDto extends BaseEntity {
+public class UserDto extends BaseDto {
     private String firstName;
     private String lastName;
     private String userName;
@@ -17,6 +17,7 @@ public class UserDto extends BaseEntity {
     private  String typeUser;
 
     public  void fromEntety(User user){
+        super.fromEntety(user);
         id=user.getId();
        firstName=user.getFirstName();
        lastName=user.getLastName();

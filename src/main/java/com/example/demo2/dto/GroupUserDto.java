@@ -19,11 +19,12 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @ToString
 
-public class GroupUserDto extends BaseEntity {
+public class GroupUserDto extends BaseDto{
     private String stateUser;
     private int groupId;
     private int userId;
-    void fromEntety(GroupUser groupUser){
+    public  void fromEntety(GroupUser groupUser){
+        super.fromEntety(groupUser);
         id=groupUser.getId();
         stateUser=groupUser.getStateUser();
         groupId=groupUser.getGroups().getId();

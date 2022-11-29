@@ -1,5 +1,7 @@
 package com.example.demo2.response;
 
+import org.springframework.http.ResponseEntity;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,5 +35,10 @@ public class ResponseMap {
 
     public void setBody(Map body) {
         this.body = body;
+    }
+
+    static  public ResponseEntity responseEntity(Map response){
+        System.out.println(response);
+     return ResponseEntity.status((int)response.get("status")).body(response);
     }
 }

@@ -15,10 +15,10 @@ public class ReportFile extends BaseEntity{
     private String stateFile;
 
     @ManyToOne(targetEntity = File.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id",referencedColumnName = "id", nullable = false,updatable = false)
+    @JoinColumn(name = "file_id",referencedColumnName = "id")
     private File file;
     @ManyToOne(targetEntity = User.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id",referencedColumnName = "id", nullable = false,updatable = false)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
 //    @ManyToMany(mappedBy = "groupsSet")

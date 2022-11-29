@@ -3,6 +3,7 @@ package com.example.demo2.services;
 import com.example.demo2.model.entity.GroupUser;
 import com.example.demo2.model.entity.Groups;
 import com.example.demo2.model.entity.User;
+import com.example.demo2.model.entity.resours.TypeUserGroup;
 import com.example.demo2.repository.GroupUserRepository;
 import com.example.demo2.repository.GroupsRepository;
 import com.example.demo2.request.CreateGroupRequest;
@@ -11,6 +12,7 @@ import com.example.demo2.request.GetGroupPublicRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +31,7 @@ public class GroupsService {
         return groups.orElse(null);
     }
     public Groups saveGroup(Groups groups){
-
-        System.out.println(groups);
+        groups.setUpdatedAt(new Date(System.currentTimeMillis()));
         return this.groupsRepository.save(groups);
 
     }
@@ -52,7 +53,12 @@ public class GroupsService {
     public Groups createGroup(CreateGroupRequest createGroupRequest){
         createGroupRequest.getGroup().setUser(userService.getUser(Integer.parseInt(createGroupRequest.token)));
         Groups groups= this.groupsRepository.save(createGroupRequest.getGroup());
-        GroupUser groupUser= groupUserService.saveGroupUser(createGroupRequest,groups,"owner");
+        GroupUser groupUser= groupUserService.saveGroupUser(createGroupRequest,groups, TypeUserGroup.owner.name());
+        return  groups;
+    }
+    public Groups addUserForGroup(int groupId,int userId){
+        Groups groups= this.groupsRepository.findById(groupId).get();
+         GroupUser groupUser= groupUserService.addUserForGroup(groups,userId);
         return  groups;
     }
 }

@@ -25,8 +25,22 @@ public class ReportFilerService {
     @Autowired
     private FileRepository fileRepository;
 
+    public void deleteByFile(int fileId){
+       List<ReportFile> reportFilesList=getReportFileListByFile(fileId);
+       for(ReportFile reportFile:reportFilesList){
+           reportFile.setFile(null);
+       }
+        this.reportFileRepository.saveAll(reportFilesList);
+    }
+    public List<ReportFile> getReportFileListByFile(int fileId){
+        Optional<List<ReportFile>> reportFilesList = this.reportFileRepository.findAllByFile(
+                fileRepository.getById(fileId)
+        );
+        return reportFilesList.orElse(null);
+    }
+
     public List<ReportFile> getReportFileList(GetReportsFileRequest getReportsFileRequest){
-        Optional<List<ReportFile>> reportFilesList = this.reportFileRepository.findAllByUserAndAndFile(
+        Optional<List<ReportFile>> reportFilesList = this.reportFileRepository.findAllByUserAndFile(
                 userService.getUser(Integer.parseInt(getReportsFileRequest.token)),
                 fileRepository.getById(getReportsFileRequest.getFileId())
         );
@@ -34,6 +48,12 @@ public class ReportFilerService {
     }
     public ReportFile saveReportFile(CreateFileRequest createFileRequest, File file, String stateFile){
         User user= userService.getUser(Integer.parseInt(createFileRequest.token));
+        ReportFile reportFile =reportFileRepository.save( ReportFile.builder().file(file).user(user).stateFile(stateFile).build());
+        return reportFile;
+    }
+
+    public ReportFile createReportFile(int userID, File file, String stateFile){
+        User user= userService.getUser(userID);
         ReportFile reportFile =reportFileRepository.save( ReportFile.builder().file(file).user(user).stateFile(stateFile).build());
         return reportFile;
     }

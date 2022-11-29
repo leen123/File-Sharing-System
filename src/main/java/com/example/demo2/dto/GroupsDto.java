@@ -27,6 +27,7 @@ public class GroupsDto extends BaseDto{
     private int userCreateId;
 
     public  void fromEntety(Groups groups){
+        super.fromEntety(groups);
         id=groups.getId();
         name =groups.getName();
         editFilesAll=groups.getEditFilesAll();

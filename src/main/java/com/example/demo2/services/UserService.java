@@ -6,6 +6,7 @@ import com.example.demo2.request.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ public class UserService {
     }
     public User saveUser(User user){
        // System.out.println("user save service "+user );
+        user.setUpdatedAt(new Date(System.currentTimeMillis()));
         return this.userRepository.save(user);
 
     }

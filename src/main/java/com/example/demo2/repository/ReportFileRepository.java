@@ -10,5 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReportFileRepository extends JpaRepository<ReportFile,Integer> {
-    Optional<List<ReportFile>> findAllByUserAndAndFile(User user, File file);
+
+    Optional<List<ReportFile>> findAllByUserAndFile(User user, File file);
+    Optional<List<ReportFile>> findAllByFile( File file);
 }

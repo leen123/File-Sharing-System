@@ -1,12 +1,12 @@
 package com.example.demo2.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Table(name = "users")
@@ -15,14 +15,18 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseEntity{
+public class User extends BaseEntity  implements UserDetails{
    /* @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int userId;*/
     @Column(nullable = false)
     private String firstName;
     private String lastName;
+
+
+
     @Column(unique = true,nullable = false)
+
     private String userName;
     @Column(unique = true,nullable = false)
     private  String email;
@@ -43,6 +47,39 @@ public class User extends BaseEntity{
             .typeUser("typeUser")
             .build();
    }
+
+   public  String getUserName(){
+      return  this.userName;
+   }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 //   @CreatedBy
 //    @OneToMany(targetEntity = GroupsDto.class,cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_create_id",referencedColumnName = "id",nullable = false,updatable = false)
