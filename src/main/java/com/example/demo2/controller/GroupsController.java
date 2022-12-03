@@ -1,13 +1,12 @@
 
 package com.example.demo2.controller;
 
+import com.example.demo2.dto.GroupUserDto;
 import com.example.demo2.dto.GroupsDto;
+import com.example.demo2.model.entity.GroupUser;
 import com.example.demo2.model.entity.Groups;
 import com.example.demo2.model.entity.User;
-import com.example.demo2.request.AddUserForGroupRequest;
-import com.example.demo2.request.CreateGroupRequest;
-import com.example.demo2.request.GetGroupPrivateRequest;
-import com.example.demo2.request.GetGroupPublicRequest;
+import com.example.demo2.request.*;
 import com.example.demo2.response.*;
 import com.example.demo2.services.GroupsService;
 import com.example.demo2.services.UserService;
@@ -26,6 +25,7 @@ import java.util.Map;
 public class GroupsController {
     @Autowired
     private GroupsService groupsService;
+
     @Autowired
     private GroupsValidate groupsValidate;
     @GetMapping("/get-group")
@@ -69,6 +69,23 @@ public class GroupsController {
         return ResponseMap.responseEntity(response);
        // System.out.println(response);
     }
+
+    @DeleteMapping("/delete_group")
+    public ResponseEntity deleteGroup(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+        DeleteGroupRequest deleteGroupRequest= new DeleteGroupRequest();
+        DeleteGroupResponse deleteGroupResponse=new DeleteGroupResponse();
+        deleteGroupRequest.fromRequest(header,body);
+
+        Map response= groupsValidate.deleteGroupValidate(deleteGroupRequest);
+        if((int)response.get("status")==200){
+            groupsService.deleteGroup(Integer.parseInt(deleteGroupRequest.token));
+            deleteGroupResponse.fromResponseBody();
+            response.put("body",deleteGroupResponse.getBody());
+        }
+        return ResponseMap.responseEntity(response);
+        //System.out.println(response);
+    }
+
     @GetMapping("/get_group_public")
     public ResponseEntity getGrouppublic(@RequestHeader Map<String,String> header){
         GetGroupPublicRequest getGroupPublicRequest= new GetGroupPublicRequest();
@@ -129,6 +146,45 @@ public class GroupsController {
         }
         return ResponseMap.responseEntity(response);
         // System.out.println(response);
+    }
+    @DeleteMapping("/delete_user_group")
+    public ResponseEntity deleteUserForGroup(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+        DeleteUserForGroupRequest deleteUserForGroupRequest= new DeleteUserForGroupRequest();
+        DeleteUserForGroupResponse deleteUserForGroupResponse=new DeleteUserForGroupResponse();
+        deleteUserForGroupRequest.fromRequest(header,body);
+
+
+        Map response= groupsValidate.DeleteUserToGroupValidate(deleteUserForGroupRequest.getGroupId(),deleteUserForGroupRequest.getUserId(),Integer.parseInt(deleteUserForGroupRequest.token));
+        if((int)response.get("status")== 201){
+            groupsService.deleteUserForGroup(deleteUserForGroupRequest.getGroupId(),deleteUserForGroupRequest.getUserId());
+
+            deleteUserForGroupResponse.fromResponseBody();
+            response.put("body",deleteUserForGroupResponse.getBody());
+        }
+        return ResponseMap.responseEntity(response);
+        // System.out.println(response);
+    }
+
+    @PostMapping("/get_user_group")
+    public ResponseEntity getUserForGroup(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+        GetUserGroupRequest getUserGroupRequest= new GetUserGroupRequest();
+        GetUserGroupResponse getUserGroupResponse=new GetUserGroupResponse();
+        getUserGroupRequest.fromRequest(header,body);
+
+
+        Map response= groupsValidate.GetUserToGroupValidate(getUserGroupRequest.getGroupId());
+        if((int)response.get("status")== 200){
+            List<GroupUser> groupUserList=groupsService.getUserForGroup(getUserGroupRequest.getGroupId());
+
+            for (GroupUser groupUser : groupUserList){
+                GroupUserDto groupUserDto=GroupUserDto.builder().build();
+                groupUserDto.fromEntety(groupUser);
+                getUserGroupResponse.getListGroupUser().add(groupUserDto);
+            }
+            getUserGroupResponse.fromResponseBody();
+            response.put("body",getUserGroupResponse.getBody());
+        }
+        return ResponseMap.responseEntity(response);
     }
 
 

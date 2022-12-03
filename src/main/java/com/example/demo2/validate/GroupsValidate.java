@@ -7,9 +7,7 @@ import com.example.demo2.model.entity.resours.TypeUserGroup;
 import com.example.demo2.repository.GroupUserRepository;
 import com.example.demo2.repository.GroupsRepository;
 import com.example.demo2.repository.UserRepository;
-import com.example.demo2.request.CreateGroupRequest;
-import com.example.demo2.request.GetGroupPrivateRequest;
-import com.example.demo2.request.LoginRequest;
+import com.example.demo2.request.*;
 import com.example.demo2.services.GroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +40,19 @@ public class GroupsValidate {
         return valid;
     }
 
+    public Map deleteGroupValidate(DeleteGroupRequest deleteGroupRequest){
+        Map valid = new HashMap();
+        if(!groupsRepository.existsById(deleteGroupRequest.getGroupId())){
+            valid.put("status",412);
+            valid.put("msg","this group not found");
+        }else {
+            valid.put("status",200);
+            valid.put("msg","delete group succeeded");
+        }
 
+
+        return valid;
+    }
     public Map AddUserToGroupValidate(int groupId,int userId,int userIdAdder){
         Map valid = new HashMap();
         valid.put("status",201);
@@ -72,7 +82,46 @@ public class GroupsValidate {
         }
         return valid;
     }
+    public Map DeleteUserToGroupValidate(int groupId,int userId,int userIdAdder){
+        Map valid = new HashMap();
+        valid.put("status",201);
+        valid.put("msg","delete user to group succeeded");
 
+
+
+        if(!groupsRepository.existsById(groupId)){
+            valid.put("status",412);
+            valid.put("msg","this  group not found");
+        }
+        else if(!userRepository.existsById(userId)){
+            valid.put("status",412);
+            valid.put("msg","this  user not found");
+
+        }else {
+            Groups groups=groupsRepository.findById(groupId).get();
+            User user=userRepository.findById(userId).get();
+            User userAdder=userRepository.findById(userIdAdder).get();
+            if(!groupUserRepository.existsByGroupsAndUser(groups,user)){
+                valid.put("status",412);
+                valid.put("msg","this  user already  not found in group ");
+            }else if(!groups.getAddUserAll()&&groupUserRepository.existsByStateUserAndUser(TypeUserGroup.member.name(),userAdder)){
+                valid.put("status",412);
+                valid.put("msg"," not allowed for delete this group");
+            }
+        }
+        return valid;
+    }
+    public Map GetUserToGroupValidate(int groupId){
+        Map valid = new HashMap();
+        valid.put("status",200);
+        valid.put("msg","get user to group succeeded");
+
+        if(!groupsRepository.existsById(groupId)){
+            valid.put("status",412);
+            valid.put("msg","this  group not found");
+        }
+        return valid;
+    }
     public Map GetGroupValidate(){
         Map valid = new HashMap();
         if(false){

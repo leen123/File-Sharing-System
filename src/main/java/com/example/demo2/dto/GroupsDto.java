@@ -8,6 +8,8 @@ import com.example.demo2.model.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -25,7 +27,6 @@ public class GroupsDto extends BaseDto{
     private Boolean editGroupAll;
     private String typeGroup;
     private int userCreateId;
-
     public  void fromEntety(Groups groups){
         super.fromEntety(groups);
         id=groups.getId();

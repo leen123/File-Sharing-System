@@ -12,9 +12,6 @@ public class GetGroupPrivateResponse extends ResponseMap {
     @Getter
     @Setter
     private List<GroupsDto> listGroupPrivate=new ArrayList<>();
-    @Getter
-    @Setter
-    String token;
     @Override
     public  void fromResponseBody() {
         super.fromResponseBody();

@@ -13,7 +13,6 @@ public class GetGroupPublicResponse extends ResponseMap {
     @Getter
     @Setter
     private List<GroupsDto> listGroupPublic=new ArrayList<>();
-    String token;
     @Override
     public  void fromResponseBody() {
         super.fromResponseBody();

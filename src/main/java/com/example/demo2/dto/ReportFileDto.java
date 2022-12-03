@@ -20,11 +20,15 @@ public class ReportFileDto extends BaseDto{
     private String stateFile;
     private int fileId;
     private int userId;
+    private UserDto user=UserDto.builder().build();
     public void fromEntety(ReportFile reportFile){
         super.fromEntety(reportFile);
         id=reportFile.getId();
         stateFile=reportFile.getStateFile();
         fileId=reportFile.getFile().getId();
         userId=reportFile.getUser().getId();
+
+        user=UserDto.builder().build();
+        user.fromEntety(reportFile.getUser());
     }
 }

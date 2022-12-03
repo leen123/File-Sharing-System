@@ -40,7 +40,10 @@ public class FileController {
 
         Map response= fileValidate.createFileValidate(createFileRequest);
         if((int)response.get("status")==201){
-            createFileResponse.getFileDto().fromEntety(fileService.createFile(createFileRequest));
+            File file =fileService.createFile(createFileRequest);
+            createFileResponse.getFileDto().fromEntety(file);
+            createFileResponse.getFileDto().getReportFileCreate().fromEntety(reportFilerService.findFirstByFile(file));
+            createFileResponse.getFileDto().getReportFileLast().fromEntety(reportFilerService.getLastReport(file));
             createFileResponse.fromResponseBody();
             response.put("body",createFileResponse.getBody());
         }
@@ -56,7 +59,7 @@ public class FileController {
 
         Map response= fileValidate.deleteFileValidate(deleteFileRequest);
         if((int)response.get("status")==200){
-            fileService.deleteFile(deleteFileRequest);
+            fileService.deleteFile(Integer.parseInt(deleteFileRequest.token));
             deleteFileResponse.fromResponseBody();
             response.put("body",deleteFileResponse.getBody());
         }
@@ -64,7 +67,7 @@ public class FileController {
         //System.out.println(response);
     }
 
-    @GetMapping("/get_file_list_group")
+    @PostMapping("/get_file_list_group")
     public ResponseEntity getFileListGroup(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         GetFileRequest getFileRequest= new GetFileRequest();
         GetFileResponse getFileResponse=new GetFileResponse();
@@ -75,6 +78,9 @@ public class FileController {
             for(File file : fileService.getFileList(getFileRequest)){
                FileDto fileDto =FileDto.builder().groupId(getFileRequest.getGroupId()).build();
                fileDto.fromEntety(file);
+                fileDto.getReportFileCreate().fromEntety(reportFilerService.findFirstByFile(file));
+                fileDto.getReportFileLast().fromEntety(reportFilerService.getLastReport(file));
+
                 getFileResponse.getListFile().add(fileDto);
             }
             getFileResponse.fromResponseBody();
@@ -83,7 +89,7 @@ public class FileController {
         return ResponseMap.responseEntity(response);
         //System.out.println(response);
     }
-@GetMapping("/get_reports_file")
+@PostMapping("/get_reports_file")
     public ResponseEntity getReportsFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         GetReportsFileRequest getReportsFileRequest= new GetReportsFileRequest();
         GetReportsResponse getReportsResponse=new GetReportsResponse();

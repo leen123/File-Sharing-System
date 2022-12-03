@@ -1,9 +1,11 @@
 package com.example.demo2.services;
 
+import com.example.demo2.model.entity.File;
 import com.example.demo2.model.entity.GroupUser;
 import com.example.demo2.model.entity.Groups;
 import com.example.demo2.model.entity.User;
 import com.example.demo2.model.entity.resours.TypeUserGroup;
+import com.example.demo2.repository.FileRepository;
 import com.example.demo2.repository.GroupUserRepository;
 import com.example.demo2.repository.GroupsRepository;
 import com.example.demo2.request.CreateGroupRequest;
@@ -24,8 +26,13 @@ public class GroupsService {
 
     @Autowired
     private UserService userService;
+
+
     @Autowired
     private GroupUserService groupUserService;
+
+    @Autowired
+    private FileService fileService;
 
     public Groups getGroup(int id){
         Optional<Groups> groups = this.groupsRepository.findById(id);
@@ -64,4 +71,26 @@ public class GroupsService {
          GroupUser groupUser= groupUserService.addUserForGroup(groups,userId);
         return  groups;
     }
+    public void deleteUserForGroup(int groupId,int userId){
+        Groups groups= this.groupsRepository.findById(groupId).get();
+        groupUserService.deleteUserForGroup(groups,userId);
+    }
+    public List<GroupUser> getUserForGroup(int groupId){
+        Groups groups= this.groupsRepository.findById(groupId).get();
+        List<GroupUser> groupUserList= groupUserService.getGroupUserListByGroup(groups);
+        return  groupUserList;
+    }
+    @Transactional
+    public void deleteGroup(int groupId)
+    {
+        Groups groups =this.groupsRepository.findById(groupId).get();
+        this.groupUserService.deleteByGroup(groups);
+        this.fileService.deleteFilesByGroup(
+                groupId
+        );
+        groups.setUser(null);
+        this.saveGroup(groups);
+      this.groupsRepository.deleteById(groupId);
+    }
+
 }

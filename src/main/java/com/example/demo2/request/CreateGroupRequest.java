@@ -12,7 +12,7 @@ public class CreateGroupRequest extends RequestMap {
     public void fromRequest(Map<String, String> header, Map<String,? > body) {
         token = header.get("token");
       //  groupid=(Integer)( body.get("groupid"));
-        group= Groups.builder().build().fromMap((Map<String, ?>) body.get("group"));
+        group= Groups.builder().build().fromMap((Map<String, ?>) body.get("groups"));
     }
 
     public Groups getGroup() {

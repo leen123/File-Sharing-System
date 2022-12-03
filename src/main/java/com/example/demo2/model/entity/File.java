@@ -37,7 +37,7 @@ public class File extends BaseEntity {
 //    private List<ReportFileDto> reportFiles;
 
     @ManyToOne(targetEntity = Groups.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "group_file_id",referencedColumnName = "id", nullable = false,updatable = false)
+    @JoinColumn(name = "group_file_id",referencedColumnName = "id")
     private Groups groups;
 
 //    @OneToMany(targetEntity = ReportFileDto.class,cascade = CascadeType.ALL)

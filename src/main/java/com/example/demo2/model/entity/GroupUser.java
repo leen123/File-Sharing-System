@@ -15,10 +15,10 @@ public class GroupUser extends BaseEntity {
     private String stateUser;
 
     @ManyToOne(targetEntity = Groups.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "group_id",referencedColumnName = "id", nullable = false,updatable = false)
+    @JoinColumn(name = "group_id",referencedColumnName = "id")
     private Groups groups;
     @ManyToOne(targetEntity = User.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id",referencedColumnName = "id", nullable = false,updatable = false)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
 }

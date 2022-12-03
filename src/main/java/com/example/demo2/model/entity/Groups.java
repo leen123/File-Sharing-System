@@ -29,7 +29,7 @@ public class Groups extends BaseEntity{
     private String typeGroup;
 
  @ManyToOne(targetEntity = User.class,cascade = CascadeType.ALL)
- @JoinColumn(name = "user_create_id",referencedColumnName = "id", nullable = false,updatable = false)
+ @JoinColumn(name = "user_create_id",referencedColumnName = "id")
  private User user;
 
  public Groups fromMap(Map<String,?> map){

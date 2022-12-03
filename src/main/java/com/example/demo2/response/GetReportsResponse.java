@@ -13,7 +13,6 @@ public class GetReportsResponse  extends ResponseMap {
     @Getter
     @Setter
     private List<ReportFileDto> reportFileList=new ArrayList<>();
-    String token;
     @Override
     public  void fromResponseBody() {
         super.fromResponseBody();

@@ -8,7 +8,6 @@ import lombok.Setter;
 import java.util.List;
 
 public class CreateFileResponse extends ResponseMap {
-    String token;
     @Getter
     @Setter
     FileDto fileDto=FileDto.builder().build();
@@ -16,7 +15,6 @@ public class CreateFileResponse extends ResponseMap {
     public  void fromResponseBody() {
         //listFile=(List<File>) (body.get("listFile"));
         super.fromResponseBody();
-        body.put("token",token);
         body.put("file",fileDto);
 
     }

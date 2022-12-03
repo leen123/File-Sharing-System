@@ -33,6 +33,8 @@ public class ReportFilerService {
            reportFile.setFile(null);
        }
         this.reportFileRepository.saveAll(reportFilesList);
+
+
     }
     public List<ReportFile> getReportFileListByFile(int fileId){
         Optional<List<ReportFile>> reportFilesList = this.reportFileRepository.findAllByFile(
@@ -57,6 +59,15 @@ public class ReportFilerService {
     public ReportFile createReportFile(int userID, File file, String stateFile){
         User user= userService.getUser(userID);
         ReportFile reportFile =reportFileRepository.save( ReportFile.builder().file(file).user(user).stateFile(stateFile).build());
+        return reportFile;
+    }
+
+    public ReportFile findFirstByFile(File file){
+        ReportFile reportFile =reportFileRepository.findFirstByFile( file).get();
+        return reportFile;
+    }
+    public ReportFile getLastReport(File file){
+        ReportFile reportFile =reportFileRepository.findFirstByFileAndUpdatedAt(file,file.getUpdatedAt()).get();
         return reportFile;
     }
 

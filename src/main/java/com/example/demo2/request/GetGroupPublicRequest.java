@@ -6,6 +6,5 @@ public class GetGroupPublicRequest extends RequestMap {
     @Override
    public void fromRequest(Map<String, String> header, Map<String, ?> body) {
         token=header.get("token");
-
     }
 }

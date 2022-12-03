@@ -23,8 +23,9 @@ public class FileService {
 
     @Autowired
     private UserService userService;
+
     @Autowired
-    private GroupsService groupsService;
+    private GroupsRepository groupsRepository;
     @Autowired
     private ReportFilerService reportFilerService;
 
@@ -51,22 +52,33 @@ public class FileService {
     }
     @Transactional
     public File createFile(CreateFileRequest createFileRequest){
-        createFileRequest.getFile().setGroups(groupsService.getGroup(createFileRequest.getGroupId()));
+        createFileRequest.getFile().setGroups(groupsRepository.findById(createFileRequest.getGroupId()).get());
         File file= this.fileRepository.save(createFileRequest.getFile());
          ReportFile reportFile = reportFilerService.saveReportFile(createFileRequest,file,"create");
         return file;
     }
     @Transactional
-    public void deleteFile(DeleteFileRequest deleteFileRequest)
+    public void deleteFile(int fileId)
     {
-        this.reportFilerService.deleteByFile(Integer.parseInt(deleteFileRequest.token));
-        File file =this.fileRepository.findById(Integer.parseInt(deleteFileRequest.token)).get();
+        this.reportFilerService.deleteByFile(fileId);
+        File file =this.fileRepository.findById(fileId).get();
         file.setGroups(null);
         this.saveFile(file);
-        this.fileRepository.deleteById(Integer.parseInt(deleteFileRequest.token));
+        this.fileRepository.deleteById(fileId);
     }
+    @Transactional
+    public void deleteFilesByGroup(int groupId)
+    {
+        Groups groups =this.groupsRepository.findById(groupId).get();
+        List<File> fileList=fileRepository.findAllByGroups(groups).get();
+
+        for (File file:fileList){
+            deleteFile(file.getId());
+        }
+    }
+
     public List<File> getFileList(GetFileRequest getFileRequest){
-        Groups groups =(groupsService.getGroup(getFileRequest.getGroupId()));
+        Groups groups =(groupsRepository.findById(getFileRequest.getGroupId()).get());
         List<File> fileList =fileRepository.findAllByGroups(groups).get();
         return fileList;
     }

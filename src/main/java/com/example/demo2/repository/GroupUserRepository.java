@@ -15,6 +15,10 @@ public interface GroupUserRepository extends JpaRepository<GroupUser,Integer> {
     boolean existsByGroupsAndUser(Groups groups, User user);
     boolean existsByStateUserAndUser(String string, User user);
     Optional<List<GroupUser>> findAllByUser(User user);
+    Optional<List<GroupUser>> findAllByGroups(Groups groups);
+    Optional<GroupUser> findByGroupsAndUser(Groups groups,User user);
+
+
     //Optional<GroupUser> save(GroupUser groupUser);
 
 }
