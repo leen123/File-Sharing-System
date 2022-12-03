@@ -26,10 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-//    @Bean
-//    AuthFilter authFilter() {
-//        return new AuthFilter();
-//    }
+    //@Bean
+    AuthFilter authFilter() {
+        return new AuthFilter();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

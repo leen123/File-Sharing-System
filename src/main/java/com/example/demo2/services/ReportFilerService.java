@@ -11,6 +11,7 @@ import com.example.demo2.request.GetReportsFileRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class ReportFilerService {
     @Autowired
     private FileRepository fileRepository;
 
+    @Transactional
     public void deleteByFile(int fileId){
        List<ReportFile> reportFilesList=getReportFileListByFile(fileId);
        for(ReportFile reportFile:reportFilesList){

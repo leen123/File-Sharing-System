@@ -12,6 +12,7 @@ import com.example.demo2.request.GetGroupPublicRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class GroupsService {
         Optional<Groups> groups = this.groupsRepository.findById(id);
         return groups.orElse(null);
     }
+
     public Groups saveGroup(Groups groups){
         groups.setUpdatedAt(new Date(System.currentTimeMillis()));
         return this.groupsRepository.save(groups);
@@ -50,6 +52,7 @@ public class GroupsService {
     public void delete(int id){
         this.groupsRepository.deleteById(id);
     }
+    @Transactional
     public Groups createGroup(CreateGroupRequest createGroupRequest){
         createGroupRequest.getGroup().setUser(userService.getUser(Integer.parseInt(createGroupRequest.token)));
         Groups groups= this.groupsRepository.save(createGroupRequest.getGroup());

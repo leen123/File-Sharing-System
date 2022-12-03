@@ -85,7 +85,6 @@ public class FileValidate {
         Map valid = new HashMap();
         valid.put("status",200);
         valid.put("msg","check in files succeeded");
-
         for (Integer fileId
                 :fileIds ) {
             if(!fileRepository.existsById(fileId)){

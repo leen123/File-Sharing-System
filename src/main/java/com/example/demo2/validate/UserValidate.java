@@ -8,6 +8,8 @@ import com.example.demo2.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +47,8 @@ public class UserValidate {
 
         return valid;
     }
+
+
     public Map registerValidate(User user){
         Map valid = new HashMap();
         if(userRepository.existsByEmail(user.getEmail()).get()){
@@ -66,6 +70,7 @@ public class UserValidate {
         return valid;
     }
     public Map getUserValidate(String token){
+
         Map valid = new HashMap();
         if(!userRepository.existsById(Integer.parseInt(token))){
             valid.put("status",401);

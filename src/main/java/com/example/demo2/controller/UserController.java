@@ -1,15 +1,19 @@
 
 package com.example.demo2.controller;
 
+import com.example.demo2.Demo2Application;
 import com.example.demo2.model.entity.User;
 import com.example.demo2.request.*;
 import com.example.demo2.response.*;
 import com.example.demo2.services.UserService;
 import com.example.demo2.validate.UserValidate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +65,25 @@ public class UserController {
         return ResponseMap.responseEntity(response);
         // System.out.println(response);
     }
+    private static Logger log = LoggerFactory.getLogger(Demo2Application.class);
+    @RequestMapping("**")
+    public void temp(){
+        log.info("/Access/greeting");
+        log.trace("/Access/greeting");
+        log.error("/Access/greeting");
+        System.out.println("dddd");
+    }
+    @Value("sever.port")
+    String address;
+
+    @GetMapping("/hello")
+    public String hello() {
+        return String.format("Hello from instance %s", address);
+    }
+    @RequestMapping("/load")
+    public ResponseEntity load(){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(String.format("load from instance %s", address));
+    }
     @PostMapping("/register")
     public ResponseEntity register(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         RegisterRequest registerRequest= new RegisterRequest();
@@ -85,6 +108,8 @@ public class UserController {
         return ResponseMap.responseEntity(response);
        // return ResponseEntity.status((int)response.get("status")).body(response);
     }
+
+
     @GetMapping("/get_user")
     public ResponseEntity getUser(@RequestHeader Map<String,String> header){
         GetUserRequest getUserRequest= new GetUserRequest();

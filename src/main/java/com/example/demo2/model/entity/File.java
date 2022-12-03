@@ -1,6 +1,7 @@
 package com.example.demo2.model.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
@@ -21,6 +22,7 @@ public class File extends BaseEntity {
     private String url;
     private String size;
     @Column(nullable = false)
+    @Where(clause = "state = 'MALE'")
     private String state;
     public File fromMap(Map<String,?> map){
        return File.builder()

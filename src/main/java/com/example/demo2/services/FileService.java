@@ -5,9 +5,12 @@ import com.example.demo2.model.entity.resours.StateFile;
 import com.example.demo2.repository.FileRepository;
 import com.example.demo2.repository.GroupsRepository;
 import com.example.demo2.request.*;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,12 +49,14 @@ public class FileService {
 
         this.fileRepository.deleteById(id);
     }
+    @Transactional
     public File createFile(CreateFileRequest createFileRequest){
         createFileRequest.getFile().setGroups(groupsService.getGroup(createFileRequest.getGroupId()));
         File file= this.fileRepository.save(createFileRequest.getFile());
          ReportFile reportFile = reportFilerService.saveReportFile(createFileRequest,file,"create");
         return file;
     }
+    @Transactional
     public void deleteFile(DeleteFileRequest deleteFileRequest)
     {
         this.reportFilerService.deleteByFile(Integer.parseInt(deleteFileRequest.token));
@@ -70,6 +75,7 @@ public class FileService {
         return fileRepository.existsByState(state);
     }
 
+    @Transactional
     public File checkInFile(int userId,int fileId){
         File file =getFile(fileId);
         file.setState( StateFile.checkIn.name());
@@ -78,8 +84,9 @@ public class FileService {
         this.reportFilerService.createReportFile(userId,file, StateFile.checkIn.name());
         return file;
     }
-
+    @Transactional
     public List<File> checkInFiles(int userId,List<Integer> fileIds){
+
         List<File> fileList=new ArrayList<>();
         for (Integer fileId
             :fileIds ) {
@@ -87,7 +94,7 @@ public class FileService {
         }
         return fileList;
     }
-
+    @Transactional
     public File checkOutFile(int userId,int fileId){
         File file =getFile(fileId);
         file.setState( StateFile.checkOut.name());
@@ -96,6 +103,7 @@ public class FileService {
         this.reportFilerService.createReportFile(userId,file, StateFile.checkOut.name());
         return file;
     }
+    @Transactional
     public List<File> checkOutFiles(int userId,List<Integer> fileIds){
         List<File> fileList=new ArrayList<>();
         for (Integer fileId
