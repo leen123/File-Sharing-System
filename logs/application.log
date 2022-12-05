@@ -4990,3 +4990,16 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2022-12-05 15:28:14.251  INFO 1424 --- [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
 2022-12-05 15:28:15.743  INFO 1424 --- [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
 2022-12-05 15:28:15.778  INFO 1424 --- [restartedMain] com.example.demo2.Demo2Application       : Started Demo2Application in 14.212 seconds (JVM running for 15.549)
+2022-12-05 15:39:08.313  INFO 1424 --- [http-nio-8090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-05 15:39:08.315  INFO 1424 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-12-05 15:39:08.317  INFO 1424 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2022-12-05 15:39:08.354 DEBUG 1424 --- [http-nio-8090-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /user/register]
+2022-12-05 15:39:08.628 DEBUG 1424 --- [http-nio-8090-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /user/register, payload={"firstName":"aa","name":"","lastName":"","userId":0,"email":"aa","password":"aa","userName":"aa","createdAt":"2022-12-05 15:39:08.091340","updatedAt":"2022-12-05 15:39:08.091340"}]
+2022-12-05 15:39:19.220 DEBUG 1424 --- [http-nio-8090-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /user/register]
+2022-12-05 15:39:19.360 DEBUG 1424 --- [http-nio-8090-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /user/register, payload={"firstName":"aa","name":"","lastName":"","userId":0,"email":"aa","password":"123456","userName":"aa","createdAt":"2022-12-05 15:39:19.198051","updatedAt":"2022-12-05 15:39:19.198051"}]
+2022-12-05 15:39:19.755 DEBUG 1424 --- [http-nio-8090-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /file/create_file]
+2022-12-05 15:39:19.963 DEBUG 1424 --- [http-nio-8090-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /file/create_file]
+2022-12-05 15:49:57.902 DEBUG 1424 --- [http-nio-8090-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /user/login]
+2022-12-05 15:49:57.931 DEBUG 1424 --- [http-nio-8090-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /user/login, payload={"userOrEmail":"aa","password":"aa"}]
+2022-12-05 15:53:22.903 DEBUG 1424 --- [http-nio-8090-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /file/create_file]
+2022-12-05 15:53:22.926 DEBUG 1424 --- [http-nio-8090-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /file/create_file]
