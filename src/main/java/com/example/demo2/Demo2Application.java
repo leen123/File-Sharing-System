@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @SpringBootApplication
 public class Demo2Application {
-
+/*
     @Bean
     public CommonsRequestLoggingFilter logFilter() {
         CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
@@ -30,7 +30,7 @@ public class Demo2Application {
         filter.setIncludeHeaders(false);
         filter.setAfterMessagePrefix("REQUEST DATA : ");
         return filter;
-    }
+    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(Demo2Application.class, args);
