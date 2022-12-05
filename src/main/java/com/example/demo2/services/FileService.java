@@ -1,6 +1,8 @@
 package com.example.demo2.services;
 
 import com.example.demo2.model.entity.*;
+import com.example.demo2.model.entity.File;
+import com.example.demo2.model.entity.resours.ConstUrl;
 import com.example.demo2.model.entity.resours.StateFile;
 import com.example.demo2.repository.FileRepository;
 import com.example.demo2.repository.GroupsRepository;
@@ -9,8 +11,13 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,10 +57,25 @@ public class FileService {
 
         this.fileRepository.deleteById(id);
     }
+    public File uploadFile(MultipartFile fileobj,File file){
+        Path filepath = Paths.get(ConstUrl.pathFilse , fileobj.getOriginalFilename());
+
+        try (OutputStream os = Files.newOutputStream(filepath)) {
+            os.write(fileobj.getBytes());
+            file.setName(fileobj.getOriginalFilename());
+            file.setSize(""+fileobj.getBytes().length);
+            file.setUrl(filepath.toString());
+        }catch (Exception e){//Catch exception if any
+            System.err.println("Error: " + e.getMessage());
+        }
+        return file;
+    }
+
     @Transactional
-    public File createFile(CreateFileRequest createFileRequest){
+    public File createFile(MultipartFile fileobj,CreateFileRequest createFileRequest){
         createFileRequest.getFile().setGroups(groupsRepository.findById(createFileRequest.getGroupId()).get());
-        File file= this.fileRepository.save(createFileRequest.getFile());
+
+        File file= this.fileRepository.save(uploadFile(fileobj,createFileRequest.getFile()));
          ReportFile reportFile = reportFilerService.saveReportFile(createFileRequest,file,"create");
         return file;
     }

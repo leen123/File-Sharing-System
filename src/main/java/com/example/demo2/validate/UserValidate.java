@@ -34,7 +34,8 @@ public class UserValidate {
                user1=userRepository.findByUserName(loginRequest.getUserOrEmail()).get();
            }
 
-
+            System.out.println(user1.getPassword());
+            System.out.println(loginRequest.getPassword());
            if(!user1.getPassword().equals(loginRequest.getPassword())){
                valid.put("status",412);
                valid.put("msg","password invalid");

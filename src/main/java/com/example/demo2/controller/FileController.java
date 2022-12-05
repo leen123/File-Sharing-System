@@ -13,10 +13,22 @@ import com.example.demo2.services.ReportFilerService;
 import com.example.demo2.services.UserService;
 import com.example.demo2.validate.FileValidate;
 import com.example.demo2.validate.UserValidate;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.naming.ConfigurationException;
+import javax.servlet.MultipartConfigElement;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,23 +44,27 @@ public class FileController {
     private FileValidate fileValidate;
 
 
-    @PostMapping("/create_file")
-    public ResponseEntity createFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+
+
+    @PostMapping(value = "/create_file")
+    public ResponseEntity createFile(@RequestParam("fileobj") MultipartFile fileobj,@RequestParam("body")  String body , @RequestHeader Map<String,String> header) {
         CreateFileRequest createFileRequest= new CreateFileRequest();
         CreateFileResponse createFileResponse=new CreateFileResponse();
-        createFileRequest.fromRequest(header,body);
+        createFileRequest.fromRequest(header,fileobj,body);
 
         Map response= fileValidate.createFileValidate(createFileRequest);
-        if((int)response.get("status")==201){
-            File file =fileService.createFile(createFileRequest);
+       // fileService.uploadFile(fileobj,createFileRequest.getFile());
+       if((int)response.get("status")==201){
+            File file =fileService.createFile(fileobj,createFileRequest);
+
             createFileResponse.getFileDto().fromEntety(file);
             createFileResponse.getFileDto().getReportFileCreate().fromEntety(reportFilerService.findFirstByFile(file));
             createFileResponse.getFileDto().getReportFileLast().fromEntety(reportFilerService.getLastReport(file));
+
             createFileResponse.fromResponseBody();
             response.put("body",createFileResponse.getBody());
         }
         return ResponseMap.responseEntity(response);
-       // System.out.println(response);
     }
 
     @DeleteMapping("/delete_file")
@@ -64,7 +80,7 @@ public class FileController {
             response.put("body",deleteFileResponse.getBody());
         }
         return ResponseMap.responseEntity(response);
-        //System.out.println(response);
+
     }
 
     @PostMapping("/get_file_list_group")

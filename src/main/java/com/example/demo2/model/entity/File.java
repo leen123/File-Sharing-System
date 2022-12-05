@@ -2,6 +2,7 @@ package com.example.demo2.model.entity;
 
 import lombok.*;
 import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
@@ -17,6 +18,12 @@ import java.util.Map;
 @Entity
 public class File extends BaseEntity {
 
+    @Getter
+    @Setter
+    @Column( updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    protected Date updateFileAt=new Date(System.currentTimeMillis());
     @Column(nullable = false)
     private String name;
     private String url;
@@ -24,23 +31,11 @@ public class File extends BaseEntity {
     @Column(nullable = false)
     @Where(clause = "state = 'MALE'")
     private String state;
-    public File fromMap(Map<String,?> map){
-       return File.builder()
-                .name((String) map.get("name"))
-                .url((String) map.get("url"))
-                .size((String) map.get("size"))
-                .state((String) map.get("state"))
-                .build();
-    }
-//    @OneToMany(targetEntity = ReportFileDto.class,cascade = CascadeType.ALL)
-//    @JoinColumn(name = "reports_file__id",referencedColumnName = "id",nullable = false)
-//    private List<ReportFileDto> reportFiles;
+
+
 
     @ManyToOne(targetEntity = Groups.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "group_file_id",referencedColumnName = "id")
     private Groups groups;
 
-//    @OneToMany(targetEntity = ReportFileDto.class,cascade = CascadeType.ALL)
-//    @JoinColumn(name = "reports_file__id",referencedColumnName = "id",nullable = false)
-//    private List<ReportFileDto> reportFiles;
 }

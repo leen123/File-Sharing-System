@@ -8,6 +8,7 @@ import com.example.demo2.repository.ReportFileRepository;
 import com.example.demo2.services.ReportFilerService;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,7 +20,7 @@ import java.util.Map;
 @ToString
 @Builder
 public class FileDto extends BaseDto {
-
+    protected Date updateFileAt=new Date(System.currentTimeMillis());
     private String name;
     private String url;
     private String size;
@@ -37,6 +38,7 @@ public class FileDto extends BaseDto {
         url=file.getUrl();
         size=file.getSize();
         state=file.getState();
+        updateFileAt=file.getUpdateFileAt();
         groupId=file.getGroups().getId();
 
          reportFileCreate=ReportFileDto.builder().build();

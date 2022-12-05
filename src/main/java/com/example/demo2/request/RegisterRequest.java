@@ -1,5 +1,14 @@
 package com.example.demo2.request;
 
+import com.example.demo2.security.AUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterRequest extends RequestMap {
@@ -9,13 +18,20 @@ public class RegisterRequest extends RequestMap {
     private String email;
     private String password;
 
+
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Override
     public void fromRequest(Map<String,String> header, Map<String,?> body) {
         lastName=(String) body.get("firstName");
         firstName=(String) body.get("lastName");
         username=(String)body.get("userName");
         email=(String)body.get("email");
-        password=(String)body.get("password");
+        password= ((String)body.get("password"));
+
+
+
     }
 
 

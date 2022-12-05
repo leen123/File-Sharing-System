@@ -20,10 +20,7 @@ public class AUserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Bean
-    private PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -37,7 +34,7 @@ public class AUserService implements UserDetailsService {
     }
 
     public void save(User user) {
-        user.setPassword(passwordEncoder().encode(user.getPassword()));
+      //  user.setPassword(passwordEncoder().encode(user.getPassword()));
         this.userRepository.save(user);
     }
 
