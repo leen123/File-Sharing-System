@@ -1,0 +1,12 @@
+2021/12/13 20:43:11 [emerg] 21160#6524: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2021/12/13 21:57:39 [emerg] 22320#9916: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2021/12/13 21:57:48 [emerg] 14064#25032: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2022/12/02 11:14:59 [emerg] 18108#16940: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/02 11:16:29 [emerg] 17840#8388: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/02 11:17:34 [emerg] 11028#10636: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/02 11:17:35 [emerg] 14244#18000: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/02 11:18:08 [emerg] 12076#1356: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/02 11:19:16 [emerg] 11300#12580: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/02 11:23:02 [emerg] 12248#20260: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/02 11:23:07 [emerg] 13436#1916: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/02 11:23:09 [emerg] 14572#18092: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
