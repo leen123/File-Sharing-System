@@ -11,3 +11,39 @@
 2022/12/02 11:23:07 [emerg] 13436#1916: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
 2022/12/02 11:23:09 [emerg] 14572#18092: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
 2022/12/06 10:53:58 [emerg] 14052#7540: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/11 12:58:29 [emerg] 6336#4960: invalid parameter "sendfile" in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/11 13:03:18 [emerg] 6732#10812: invalid parameter "sendfile" in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/11 13:03:20 [emerg] 15036#6836: invalid parameter "sendfile" in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/11 13:26:29 [emerg] 13188#16984: invalid number of arguments in "include" directive in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:19
+2022/12/11 13:34:50 [emerg] 12488#8720: invalid number of arguments in "include" directive in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:19
+2022/12/11 13:35:41 [emerg] 10080#17420: invalid number of arguments in "include" directive in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:19
+2022/12/11 13:36:54 [emerg] 10244#11396: invalid number of arguments in "include" directive in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:19
+2022/12/11 13:41:46 [emerg] 13172#17964: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:120
+2022/12/11 13:45:40 [emerg] 2800#2136: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:120
+2022/12/11 13:48:54 [emerg] 4208#12076: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:120
+2022/12/11 13:49:25 [emerg] 14112#12448: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:120
+2022/12/11 13:52:00 [emerg] 9884#2444: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:120
+2022/12/11 13:53:13 [emerg] 10888#2428: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:120
+2022/12/11 13:55:20 [emerg] 8348#2948: "upstream" directive is not allowed here in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:43
+2022/12/11 13:56:36 [emerg] 1976#11072: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:120
+2022/12/11 13:57:37 [emerg] 16760#18100: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:120
+2022/12/11 13:59:23 [emerg] 12772#13688: "location" directive is not allowed here in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:39
+2022/12/11 14:00:06 [emerg] 14620#6584: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:123
+2022/12/11 14:01:02 [emerg] 532#4268: invalid parameter "$$upstream_response_time " in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:27
+2022/12/11 14:01:55 [emerg] 5348#17104: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:128
+2022/12/11 14:05:42 [emerg] 2980#11696: "worker_processes" directive is duplicate in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:128
+2022/12/11 14:12:57 [emerg] 12784#14132: "master_process" directive is not allowed here in C:\springGit\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:36
+2022/12/11 14:16:56 [emerg] 9024#17740: CreateDirectory() "C:\springGit\nginx-1.20.2\nginx-1.20.2/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2022/12/11 14:17:59 [emerg] 4872#12716: CreateDirectory() "C:\springGit\nginx-1.20.2\nginx-1.20.2/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2022/12/11 14:21:10 [notice] 15652#15836: signal process started
+2022/12/11 14:21:10 [error] 15652#15836: CreateFile() "C:\springGit\nginx-1.20.2\nginx-1.20.2/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2022/12/11 14:21:42 [emerg] 5724#11840: CreateDirectory() "C:\springGit\nginx-1.20.2\nginx-1.20.2/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2022/12/11 14:21:46 [notice] 17104#13580: signal process started
+2022/12/11 14:21:46 [error] 17104#13580: CreateFile() "C:\springGit\nginx-1.20.2\nginx-1.20.2/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2022/12/11 14:26:15 [notice] 3120#11096: signal process started
+2022/12/11 14:26:15 [error] 3120#11096: CreateFile() "C:\springGit\nginx-1.20.2\nginx-1.20.2/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2022/12/11 14:26:19 [emerg] 8296#11852: CreateDirectory() "C:\springGit\nginx-1.20.2\nginx-1.20.2/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2022/12/11 14:26:49 [emerg] 12076#6564: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2022/12/11 14:29:07 [notice] 10432#15600: signal process started
+2022/12/11 14:29:16 [notice] 11856#13344: signal process started
+2022/12/11 14:34:23 [notice] 2812#14880: signal process started
