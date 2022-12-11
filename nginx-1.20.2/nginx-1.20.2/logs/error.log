@@ -10,3 +10,4 @@
 2022/12/02 11:23:02 [emerg] 12248#20260: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
 2022/12/02 11:23:07 [emerg] 13436#1916: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
 2022/12/02 11:23:09 [emerg] 14572#18092: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31
+2022/12/06 10:53:58 [emerg] 14052#7540: invalid parameter "sendfile" in C:\Users\hp\IdeaProjects\demo2\nginx-1.20.2\nginx-1.20.2/conf/nginx.conf:31

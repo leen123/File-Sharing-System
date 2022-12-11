@@ -28,7 +28,11 @@ public class GroupsValidate {
 
     public Map CreateGroupValidate(CreateGroupRequest createGroupRequest){
         Map valid = new HashMap();
-        if(groupsRepository.existsByName(createGroupRequest.getGroup().getName())){
+        if(!userRepository.existsById(Integer.parseInt(createGroupRequest.token))){
+            valid.put("status",401);
+            valid.put("msg","this user not found");
+        }
+        else if(groupsRepository.existsByName(createGroupRequest.getGroup().getName())){
             valid.put("status",412);
             valid.put("msg","this name group already found");
         }

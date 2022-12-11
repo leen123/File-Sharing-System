@@ -78,12 +78,11 @@ public class GroupsController {
 
         Map response= groupsValidate.deleteGroupValidate(deleteGroupRequest);
         if((int)response.get("status")==200){
-            groupsService.deleteGroup(Integer.parseInt(deleteGroupRequest.token));
+            groupsService.deleteGroup(deleteGroupRequest.getGroupId());
             deleteGroupResponse.fromResponseBody();
             response.put("body",deleteGroupResponse.getBody());
         }
         return ResponseMap.responseEntity(response);
-        //System.out.println(response);
     }
 
     @GetMapping("/get_group_public")

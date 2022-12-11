@@ -48,6 +48,7 @@ public class FileController {
 
     @PostMapping(value = "/create_file")
     public ResponseEntity createFile(@RequestParam("fileobj") MultipartFile fileobj,@RequestParam("body")  String body , @RequestHeader Map<String,String> header) {
+        System.out.println(body);
         CreateFileRequest createFileRequest= new CreateFileRequest();
         CreateFileResponse createFileResponse=new CreateFileResponse();
         createFileRequest.fromRequest(header,fileobj,body);
@@ -75,7 +76,7 @@ public class FileController {
 
         Map response= fileValidate.deleteFileValidate(deleteFileRequest);
         if((int)response.get("status")==200){
-            fileService.deleteFile(Integer.parseInt(deleteFileRequest.token));
+            fileService.deleteFile(deleteFileRequest.getFileId());
             deleteFileResponse.fromResponseBody();
             response.put("body",deleteFileResponse.getBody());
         }

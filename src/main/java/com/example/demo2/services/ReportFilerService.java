@@ -67,7 +67,8 @@ public class ReportFilerService {
         return reportFile;
     }
     public ReportFile getLastReport(File file){
-        ReportFile reportFile =reportFileRepository.findFirstByFileAndUpdatedAt(file,file.getUpdatedAt()).get();
+       // ReportFile reportFile =reportFileRepository.findFirstByFileAndUpdatedAt(file,file.getUpdatedAt()).get();
+        ReportFile reportFile =reportFileRepository.findFirstByFileOrderByCreatedAtDesc(file).get();
         return reportFile;
     }
 

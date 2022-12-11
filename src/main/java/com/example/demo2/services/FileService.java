@@ -74,8 +74,8 @@ public class FileService {
     @Transactional
     public File createFile(MultipartFile fileobj,CreateFileRequest createFileRequest){
         createFileRequest.getFile().setGroups(groupsRepository.findById(createFileRequest.getGroupId()).get());
-
-        File file= this.fileRepository.save(uploadFile(fileobj,createFileRequest.getFile()));
+        File file=uploadFile(fileobj,createFileRequest.getFile());
+         file= this.fileRepository.save(file);
          ReportFile reportFile = reportFilerService.saveReportFile(createFileRequest,file,"create");
         return file;
     }

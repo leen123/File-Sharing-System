@@ -2,6 +2,9 @@ package com.example.demo2.aspect;
 
 //import org.apache.log4j.Logger;
 
+import com.example.demo2.model.entity.resours.Logging;
+import com.example.demo2.repository.LoggingRepository;
+import com.example.demo2.services.LoggingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -34,6 +37,8 @@ public class LoggingAspect extends OncePerRequestFilter {
 
     @Autowired
     private ServletWebServerApplicationContext server;
+    @Autowired
+    private LoggingService loggingService;
 
     private String currentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -78,7 +83,8 @@ public class LoggingAspect extends OncePerRequestFilter {
                 request.getCharacterEncoding());
         String responseBody = getStringValue(responseWrapper.getContentAsByteArray(),
                 response.getCharacterEncoding());
-
+        Logging logging =Logging.builder().method(request.getMethod()).requestUri(request.getRequestURI()).requestPayload(requestBody).responseCode(response.getStatus()).timeTaken(timeTaken).build();
+        loggingService.save(logging);
         logger.info(
                 "FINISHED PROCESSING : METHOD="+request.getMethod()+";\n REQUESTURI="+request.getRequestURI()+"; REQUEST PAYLOAD="+requestBody+";\n RESPONSE CODE="+response.getStatus()+"; RESPONSE="+responseBody+"; TIM TAKEN="+timeTaken);
         responseWrapper.copyBodyToResponse();

@@ -24,8 +24,8 @@ public class RegisterRequest extends RequestMap {
     }
     @Override
     public void fromRequest(Map<String,String> header, Map<String,?> body) {
-        lastName=(String) body.get("firstName");
-        firstName=(String) body.get("lastName");
+        firstName=(String) body.get("firstName");
+        lastName=(String) body.get("lastName");
         username=(String)body.get("userName");
         email=(String)body.get("email");
         password= ((String)body.get("password"));
