@@ -83,5 +83,13 @@ public class UserValidate {
         }
         return valid;
     }
+    public Map getAllUserValidate(){
+
+        Map valid = new HashMap();
+            valid.put("status",200);
+            valid.put("msg","get all user");
+        return valid;
+    }
+
 
 }

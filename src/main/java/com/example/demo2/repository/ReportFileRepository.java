@@ -14,6 +14,7 @@ public interface ReportFileRepository extends JpaRepository<ReportFile,Integer> 
 
     Optional<List<ReportFile>> findAllByUserAndFile(User user, File file);
     Optional<List<ReportFile>> findAllByFile( File file);
+    Optional<List<ReportFile>> findAllByFileOrderByCreatedAtDesc (File file);
     Optional<ReportFile> findFirstByFile(File file);
     Optional<ReportFile> findFirstByFileAndUpdatedAt(File file, Date date);
     Optional<ReportFile> findFirstByFileOrderByCreatedAtDesc(File file);

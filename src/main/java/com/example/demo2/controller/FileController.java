@@ -106,6 +106,29 @@ public class FileController {
         return ResponseMap.responseEntity(response);
         //System.out.println(response);
     }
+
+    @PostMapping("/get_file_list_group_search")
+    public ResponseEntity getFileListGroupSearch(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+        GetFileSearchRequest getFileSearchRequest= new GetFileSearchRequest();
+        GetFileSearchResponse getFileSearchResponse=new GetFileSearchResponse();
+        getFileSearchRequest.fromRequest(header,body);
+
+        Map response= fileValidate.getFileSearchValidate(getFileSearchRequest);
+        if((int)response.get("status")==200){
+            for(File file : fileService.getFileListSearch(getFileSearchRequest)){
+                FileDto fileDto =FileDto.builder().groupId(getFileSearchRequest.getGroupId()).build();
+                fileDto.fromEntety(file);
+                fileDto.getReportFileCreate().fromEntety(reportFilerService.findFirstByFile(file));
+                fileDto.getReportFileLast().fromEntety(reportFilerService.getLastReport(file));
+
+                getFileSearchResponse.getListFile().add(fileDto);
+            }
+            getFileSearchResponse.fromResponseBody();
+            response.put("body",getFileSearchResponse.getBody());
+        }
+        return ResponseMap.responseEntity(response);
+        //System.out.println(response);
+    }
 @PostMapping("/get_reports_file")
     public ResponseEntity getReportsFile(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
         GetReportsFileRequest getReportsFileRequest= new GetReportsFileRequest();
@@ -127,7 +150,7 @@ public class FileController {
     }
 
     @PostMapping("/chickIn_files")
-    public ResponseEntity chickInFiles(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body){
+    public ResponseEntity chickInFiles(@RequestHeader Map<String,String> header, @RequestBody Map<String,?> body)throws Exception{
         CheckInRequest checkInRequest= new CheckInRequest();
         CheckinResponse checkinResponse=new CheckinResponse();
         checkInRequest.fromRequest(header,body);

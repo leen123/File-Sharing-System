@@ -4,6 +4,7 @@ import com.example.demo2.model.entity.File;
 import com.example.demo2.model.entity.GroupUser;
 import com.example.demo2.model.entity.Groups;
 import com.example.demo2.model.entity.User;
+import com.example.demo2.model.entity.resours.TypeUser;
 import com.example.demo2.model.entity.resours.TypeUserGroup;
 import com.example.demo2.repository.FileRepository;
 import com.example.demo2.repository.GroupUserRepository;
@@ -50,7 +51,8 @@ public class GroupsService {
     public List<Groups> getAllPrivate(GetGroupPrivateRequest getGroupPrivateRequest){
         User user= userService.getUser(Integer.parseInt(getGroupPrivateRequest.token));
         List<Groups> groupsList=groupUserService.getGroupByUser(user);
-
+        if(user.getTypeUser().contains(TypeUser.admin.name()))
+            groupsList=this.groupsRepository.findAllByTypeGroup("private");
         return groupsList;
     }
     public List<Groups> getAllPublic(GetGroupPublicRequest getGroupPublicRequest){

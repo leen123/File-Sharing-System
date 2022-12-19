@@ -3,6 +3,7 @@ package com.example.demo2.model.entity;
 import lombok.*;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.repository.Lock;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
@@ -31,6 +32,9 @@ public class File extends BaseEntity {
     @Column(nullable = false)
     @Where(clause = "state = 'MALE'")
     private String state;
+
+    @Column(nullable = false)
+    private int var=0;
 
 
 

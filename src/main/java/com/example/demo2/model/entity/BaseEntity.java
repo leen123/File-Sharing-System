@@ -1,6 +1,7 @@
 package com.example.demo2.model.entity;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
+
 @EntityListeners(AuditingEntityListener.class)
 
 public class BaseEntity {

@@ -2,6 +2,9 @@
 package com.example.demo2.controller;
 
 import com.example.demo2.Demo2Application;
+import com.example.demo2.dto.GroupUserDto;
+import com.example.demo2.dto.UserDto;
+import com.example.demo2.model.entity.GroupUser;
 import com.example.demo2.model.entity.User;
 import com.example.demo2.request.*;
 import com.example.demo2.response.*;
@@ -43,8 +46,23 @@ public class UserController {
         return userService.saveUser(user);
     }
     @GetMapping("/get-all")
-    public List<User> getAll(){
-        return this.userService.getAll();
+    public ResponseEntity getAll(@RequestHeader Map<String,String> header){
+        GetAllUserResponse getAllUserResponse=new GetAllUserResponse();
+
+        Map response= userValidate.getAllUserValidate();
+        if((int)response.get("status")== 200){
+            List<User> userList=this.userService.getAll();
+
+            for (User user : userList){
+                UserDto userDto=UserDto.builder().build();
+                userDto.fromEntety(user);
+                getAllUserResponse.getListUser().add(userDto);
+            }
+            getAllUserResponse.fromResponseBody();
+            response.put("body",getAllUserResponse.getBody());
+        }
+        return ResponseMap.responseEntity(response);
+
     }
 
 

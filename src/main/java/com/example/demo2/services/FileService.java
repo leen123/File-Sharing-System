@@ -9,10 +9,12 @@ import com.example.demo2.repository.GroupsRepository;
 import com.example.demo2.request.*;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 import java.io.*;
 import java.nio.file.Files;
@@ -42,7 +44,6 @@ public class FileService {
     }
     public File saveFile(File file){
         return this.fileRepository.save(file);
-
     }
     public List<File> getAll(){
         return this.fileRepository.findAll();
@@ -104,27 +105,46 @@ public class FileService {
         List<File> fileList =fileRepository.findAllByGroups(groups).get();
         return fileList;
     }
+    public List<File> getFileListSearch(GetFileSearchRequest getFileSearchRequest){
+        Groups groups =(groupsRepository.findById(getFileSearchRequest.getGroupId()).get());
+        List<File> fileList =fileRepository.findAllByGroups(groups).get();
+        List<File> fileListSearch =new ArrayList<>();
+        for(File file : fileList){
+            if(file.getName().toLowerCase().contains(getFileSearchRequest.getName().toLowerCase()))
+            fileListSearch.add(file);
+        }
+        return fileListSearch;
+    }
 
     public boolean existsByState(String state){
         return fileRepository.existsByState(state);
     }
 
     @Transactional
-    public File checkInFile(int userId,int fileId){
-        File file =getFile(fileId);
+    public File checkInFile(int userId,File fileOld) throws Exception{
+       File file =getFile(fileOld.getId());
         file.setState( StateFile.checkIn.name());
         file.setUpdatedAt( new Date(System.currentTimeMillis()));
+        if(file.getVar()==fileOld.getVar()){
+            file.setVar(file.getVar()+1);
+        }
+        else  throw new Exception();
         this.fileRepository.save(file);
         this.reportFilerService.createReportFile(userId,file, StateFile.checkIn.name());
         return file;
     }
     @Transactional
-    public List<File> checkInFiles(int userId,List<Integer> fileIds){
-
-        List<File> fileList=new ArrayList<>();
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    public List<File> checkInFiles(int userId,List<Integer> fileIds)throws Exception{
+        List<File> files=new ArrayList<>();
         for (Integer fileId
-            :fileIds ) {
-            fileList.add(this.checkInFile(userId,fileId));
+                :fileIds ) {
+            files.add(getFile(fileId));
+        }
+        List<File> fileList=new ArrayList<>();
+        for (File file
+            :files ) {
+            fileList.add(this.checkInFile(userId,file));
         }
         return fileList;
     }

@@ -21,6 +21,9 @@ public class LoggingService {
 
         return this.loggingRepository.save(logging);
     }
+    public  int rateApiDay(){
+        return loggingRepository.findAllByCreatedAt(new Date(System.currentTimeMillis())).get().size();
+    }
 
 
 

@@ -69,6 +69,19 @@ public class FileValidate {
 
         return valid;
     }
+    public Map getFileSearchValidate(GetFileSearchRequest getFileSearchRequest){
+        Map valid = new HashMap();
+        if(!groupsRepository.existsById(getFileSearchRequest.getGroupId())){
+            valid.put("status",412);
+            valid.put("msg","this group not found");
+        }else {
+            valid.put("status",200);
+            valid.put("msg","fetch files succeeded");
+        }
+
+
+        return valid;
+    }
     public Map getReportsFileValidate(GetReportsFileRequest getReportsFileRequest){
         Map valid = new HashMap();
         if(!fileRepository.existsById(getReportsFileRequest.getFileId())){
